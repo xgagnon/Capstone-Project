@@ -12,7 +12,7 @@ public class User {
     private String last_name;
     private long phone;
     private String address;
-    private transient String password;
+    private String password;
     private Role role;
     private List<Long> cart = new ArrayList<>();
     private List<Long> likes = new ArrayList<>();
