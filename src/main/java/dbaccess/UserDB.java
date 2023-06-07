@@ -39,10 +39,10 @@ public class UserDB {
             try {
                 collection.insertOne(new Document()
                         .append("_id", new ObjectId())
-                        .append("user_id", user.getId())
+                        .append("user_id", user.getUser_id())
                         .append("email", user.getEmail())
-                        .append("first_name", user.getFirstName())
-                        .append("last_name", user.getLastName())
+                        .append("first_name", user.getFirst_name())
+                        .append("last_name", user.getLast_name())
                         .append("phone", user.getPhone())
                         .append("address", user.getAddress())
                         .append("password", user.getPassword())
@@ -69,10 +69,10 @@ public class UserDB {
             for(User user : users) {
                 userList.add(new Document()
                         .append("_id", new ObjectId())
-                        .append("user_id", user.getId())
+                        .append("user_id", user.getUser_id())
                         .append("email", user.getEmail())
-                        .append("first_name", user.getFirstName())
-                        .append("last_name", user.getLastName())
+                        .append("first_name", user.getFirst_name())
+                        .append("last_name", user.getLast_name())
                         .append("phone", user.getPhone())
                         .append("address", user.getAddress())
                         .append("password", user.getPassword())
@@ -113,12 +113,12 @@ public class UserDB {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 
-            Document query = new Document().append("user_id",  user.getId());
+            Document query = new Document().append("user_id",  user.getUser_id());
 
             Bson updates = Updates.combine(
                     Updates.set("email", user.getEmail()),
-                    Updates.addToSet("first_name", user.getFirstName()),
-                    Updates.addToSet("last_name", user.getLastName()),
+                    Updates.addToSet("first_name", user.getFirst_name()),
+                    Updates.addToSet("last_name", user.getLast_name()),
                     Updates.addToSet("phone", user.getPhone()),
                     Updates.addToSet("address", user.getAddress()),
                     Updates.addToSet("password", user.getPassword()),
@@ -144,7 +144,7 @@ public class UserDB {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 
-            Bson query = Filters.eq("user_id", user.getId());
+            Bson query = Filters.eq("user_id", user.getUser_id());
 
             try {
                 collection.deleteOne(query);

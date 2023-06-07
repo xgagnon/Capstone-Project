@@ -34,7 +34,7 @@ public class UserDBTest {
         int userId = 10001000;
         User user = userDb.find(userId);
 
-        assertEquals(userId,user.getId());
+        assertEquals(userId,user.getUser_id());
     }
 
     @Test

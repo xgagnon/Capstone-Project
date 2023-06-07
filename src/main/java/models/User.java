@@ -6,24 +6,24 @@ import java.util.List;
 import enums.Role;
 
 public class User {
-    private int id;
+    private int user_id;
     private String email;
-    private String firstName;
-    private String lastName;
+    private String first_name;
+    private String last_name;
     private long phone;
     private String address;
     private transient String password;
     private Role role;
-    private List<Image> cart = new ArrayList<>();
-    private List<Image> likes = new ArrayList<>();
-    private List<Transaction> transactionHistory = new ArrayList<>();
+    private List<Long> cart = new ArrayList<>();
+    private List<Long> likes = new ArrayList<>();
+    private List<Long> transactionHistory = new ArrayList<>();
 
-    public int getId() {
-        return id;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getEmail() {
@@ -34,20 +34,20 @@ public class User {
         this.email = email;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
     public long getPhone() {
@@ -82,27 +82,27 @@ public class User {
         this.role = role;
     }
 
-    public List<Image> getCart() {
+    public List<Long> getCart() {
         return cart;
     }
 
-    public void setCart(List<Image> cart) {
+    public void setCart(List<Long> cart) {
         this.cart = cart;
     }
 
-    public List<Image> getLikes() {
+    public List<Long> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<Image> likes) {
+    public void setLikes(List<Long> likes) {
         this.likes = likes;
     }
 
-    public List<Transaction> getTransactionHistory() {
+    public List<Long> getTransactionHistory() {
         return transactionHistory;
     }
 
-    public void setTransactionHistory(List<Transaction> transactionHistory) {
+    public void setTransactionHistory(List<Long> transactionHistory) {
         this.transactionHistory = transactionHistory;
     }
 }
