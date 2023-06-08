@@ -39,17 +39,17 @@ public class UserDB {
             try {
                 collection.insertOne(new Document()
                         .append("_id", new ObjectId())
-                        .append("user_id", user.getUser_id())
+                        .append("user_id", user.getUserId())
                         .append("email", user.getEmail())
-                        .append("first_name", user.getFirst_name())
-                        .append("last_name", user.getLast_name())
+                        .append("first_name", user.getFirstName())
+                        .append("last_name", user.getLastName())
                         .append("phone", user.getPhone())
                         .append("address", user.getAddress())
                         .append("password", user.getPassword())
                         .append("email", user.getEmail())
                         .append("cart", user.getCart())
                         .append("likes", user.getLikes())
-                        .append("transaction_history", user.getTransactionHistory())
+                        .append("transaction_history", user.getTransaction())
                 );
             } catch (MongoException me) {
                 System.err.println("Unable to insert due to an error: " + me);
@@ -69,17 +69,17 @@ public class UserDB {
             for(User user : users) {
                 userList.add(new Document()
                         .append("_id", new ObjectId())
-                        .append("user_id", user.getUser_id())
+                        .append("user_id", user.getUserId())
                         .append("email", user.getEmail())
-                        .append("first_name", user.getFirst_name())
-                        .append("last_name", user.getLast_name())
+                        .append("first_name", user.getFirstName())
+                        .append("last_name", user.getLastName())
                         .append("phone", user.getPhone())
                         .append("address", user.getAddress())
                         .append("password", user.getPassword())
                         .append("email", user.getEmail())
                         .append("cart", user.getCart())
                         .append("likes", user.getLikes())
-                        .append("transaction_history", user.getTransactionHistory())
+                        .append("transaction_history", user.getTransaction())
                 );
             }
 
@@ -101,7 +101,7 @@ public class UserDB {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);
             MongoCollection<User> collection = database.getCollection(COLLECTION_NAME, User.class);
-            user = collection.find(Filters.eq("user_id", userId)).projection(Projections.excludeId()).first();
+            user = collection.find(Filters.eq("userId", userId)).projection(Projections.excludeId()).first();
         }
 
         return user;
@@ -113,19 +113,19 @@ public class UserDB {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 
-            Document query = new Document().append("user_id",  user.getUser_id());
+            Document query = new Document().append("user_id",  user.getUserId());
 
             Bson updates = Updates.combine(
                     Updates.set("email", user.getEmail()),
-                    Updates.addToSet("first_name", user.getFirst_name()),
-                    Updates.addToSet("last_name", user.getLast_name()),
+                    Updates.addToSet("first_name", user.getFirstName()),
+                    Updates.addToSet("last_name", user.getLastName()),
                     Updates.addToSet("phone", user.getPhone()),
                     Updates.addToSet("address", user.getAddress()),
                     Updates.addToSet("password", user.getPassword()),
                     Updates.addToSet("role", user.getRole()),
                     Updates.addToSet("cart", user.getCart()),
                     Updates.addToSet("likes", user.getLikes()),
-                    Updates.addToSet("transaction_history", user.getTransactionHistory())
+                    Updates.addToSet("transaction_history", user.getTransaction())
             );
 
             UpdateOptions options = new UpdateOptions().upsert(true);
@@ -144,7 +144,7 @@ public class UserDB {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 
-            Bson query = Filters.eq("user_id", user.getUser_id());
+            Bson query = Filters.eq("user_id", user.getUserId());
 
             try {
                 collection.deleteOne(query);

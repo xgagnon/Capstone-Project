@@ -32,31 +32,31 @@ public class UserDBTest {
 
     @Test
     public void find() {
-        int userId = 10001000;
-        String email = "user0@example.com";
-        String firstName = "Alex";
-        String lastName = "Ferit";
-        long phone = 7538642910L;
-        String address = "65 Wser St, City";
+        int userId = 10001003;
+        String email = "user3@example.com";
+        String firstName = "Sarah";
+        String lastName = "Johnson";
+        long phone = 9876543210L;
+        String address = "789 Oak St, City";
         String password = "hashed_password";
-        Role role = Role.admin;
-        int cartLength = 0;
-        int likeLength = 0 ;
-        int historyLength = 0;
+        Role role = Role.user;
+        int cartLength = 3;
+        int likeLength = 4 ;
+        int historyLength = 3;
 
         User user = userDb.find(userId);
 
-        assertEquals(userId,user.getUser_id());
+        assertEquals(userId,user.getUserId());
         assertEquals(email,user.getEmail());
-        assertEquals(firstName,user.getFirst_name());
-        assertEquals(lastName,user.getLast_name());
+        assertEquals(firstName,user.getFirstName());
+        assertEquals(lastName,user.getLastName());
         assertEquals(phone,user.getPhone());
         assertEquals(address,user.getAddress());
         assertEquals(password,user.getPassword());
         assertEquals(role,user.getRole());
         assertEquals(cartLength,user.getCart().size());
         assertEquals(likeLength,user.getLikes().size());
-        assertEquals(historyLength,user.getTransactionHistory().size());
+        assertEquals(historyLength,user.getTransaction().size());
 
     }
 

@@ -6,24 +6,24 @@ import java.util.List;
 import enums.Role;
 
 public class User {
-    private int user_id;
+    private int userId;
     private String email;
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     private long phone;
     private String address;
     private String password;
     private Role role;
     private List<Long> cart = new ArrayList<>();
     private List<Long> likes = new ArrayList<>();
-    private List<Long> transactionHistory = new ArrayList<>();
+    private List<Long> transaction = new ArrayList<>();
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getEmail() {
@@ -34,20 +34,20 @@ public class User {
         this.email = email;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public long getPhone() {
@@ -98,11 +98,11 @@ public class User {
         this.likes = likes;
     }
 
-    public List<Long> getTransactionHistory() {
-        return transactionHistory;
+    public List<Long> getTransaction() {
+        return transaction;
     }
 
-    public void setTransactionHistory(List<Long> transactionHistory) {
-        this.transactionHistory = transactionHistory;
+    public void setTransaction(List<Long> transaction) {
+        this.transaction = transaction;
     }
 }
