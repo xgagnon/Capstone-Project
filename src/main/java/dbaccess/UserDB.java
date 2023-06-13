@@ -30,6 +30,30 @@ public class UserDB {
     public static final String DB_NAME = "image_store_db";
     public static final String COLLECTION_NAME = "users";
 
+    public static final String userIdField = "userId";
+    public static final String emailField = "email";
+    public static final String firstNameField = "firstName";
+    public static final String lastNameField = "lastName";
+    public static final String phoneField = "phone";
+    public static final String addressField = "address";
+    public static final String passwordField = "password";
+    public static final String roleField = "role";
+    public static final String cartField = "cart";
+    public static final String likesField = "likes";
+    public static final String transactionsField = "transactions";
+
+    private static UserDB instance;
+
+    private UserDB() {
+    }
+
+    public static synchronized UserDB getInstance() {
+        if(instance == null) {
+            instance = new UserDB();
+        }
+        return instance;
+    }
+
     public void insert(User user) {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
 
@@ -39,18 +63,17 @@ public class UserDB {
             try {
                 collection.insertOne(new Document()
                         .append("_id", new ObjectId())
-                        .append("userId", user.getUserId())
-                        .append("email", user.getEmail())
-                        .append("firstName", user.getFirstName())
-                        .append("lastName", user.getLastName())
-                        .append("phone", user.getPhone())
-                        .append("address", user.getAddress())
-                        .append("password", user.getPassword())
-                        .append("role", user.getRole())
-                        .append("email", user.getEmail())
-                        .append("cart", user.getCart())
-                        .append("likes", user.getLikes())
-                        .append("transaction", user.getTransaction())
+                        .append(userIdField, user.getUserId())
+                        .append(emailField, user.getEmail())
+                        .append(firstNameField, user.getFirstName())
+                        .append(lastNameField, user.getLastName())
+                        .append(phoneField, user.getPhone())
+                        .append(addressField, user.getAddress())
+                        .append(passwordField, user.getPassword())
+                        .append(roleField, user.getRole())
+                        .append(cartField, user.getCart())
+                        .append(likesField, user.getLikes())
+                        .append(transactionsField, user.getTransactions())
                 );
             } catch (MongoException me) {
                 System.err.println("Unable to insert due to an error: " + me);
@@ -70,18 +93,17 @@ public class UserDB {
             for(User user : users) {
                 userList.add(new Document()
                         .append("_id", new ObjectId())
-                        .append("userId", user.getUserId())
-                        .append("email", user.getEmail())
-                        .append("firstName", user.getFirstName())
-                        .append("lastName", user.getLastName())
-                        .append("phone", user.getPhone())
-                        .append("address", user.getAddress())
-                        .append("password", user.getPassword())
-                        .append("role", user.getRole())
-                        .append("email", user.getEmail())
-                        .append("cart", user.getCart())
-                        .append("likes", user.getLikes())
-                        .append("transaction", user.getTransaction())
+                        .append(userIdField, user.getUserId())
+                        .append(emailField, user.getEmail())
+                        .append(firstNameField, user.getFirstName())
+                        .append(lastNameField, user.getLastName())
+                        .append(phoneField, user.getPhone())
+                        .append(addressField, user.getAddress())
+                        .append(passwordField, user.getPassword())
+                        .append(roleField, user.getRole())
+                        .append(cartField, user.getCart())
+                        .append(likesField, user.getLikes())
+                        .append(transactionsField, user.getTransactions())
                 );
             }
 
@@ -103,7 +125,7 @@ public class UserDB {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);
             MongoCollection<User> collection = database.getCollection(COLLECTION_NAME, User.class);
-            user = collection.find(Filters.eq("userId", userId)).projection(Projections.excludeId()).first();
+            user = collection.find(Filters.eq(userIdField, userId)).projection(Projections.excludeId()).first();
         }
 
         return user;
@@ -115,19 +137,19 @@ public class UserDB {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 
-            Document query = new Document().append("userId",  user.getUserId());
+            Document query = new Document().append(userIdField,  user.getUserId());
 
             Bson updates = Updates.combine(
-                    Updates.set("email", user.getEmail()),
-                    Updates.addToSet("firstName", user.getFirstName()),
-                    Updates.addToSet("lastName", user.getLastName()),
-                    Updates.addToSet("phone", user.getPhone()),
-                    Updates.addToSet("address", user.getAddress()),
-                    Updates.addToSet("password", user.getPassword()),
-                    Updates.addToSet("role", user.getRole()),
-                    Updates.addToSet("cart", user.getCart()),
-                    Updates.addToSet("likes", user.getLikes()),
-                    Updates.addToSet("transaction", user.getTransaction())
+                    Updates.set(emailField, user.getEmail()),
+                    Updates.addToSet(firstNameField, user.getFirstName()),
+                    Updates.addToSet(lastNameField, user.getLastName()),
+                    Updates.addToSet(phoneField, user.getPhone()),
+                    Updates.addToSet(addressField, user.getAddress()),
+                    Updates.addToSet(passwordField, user.getPassword()),
+                    Updates.addToSet(roleField, user.getRole()),
+                    Updates.addToSet(cartField, user.getCart()),
+                    Updates.addToSet(likesField, user.getLikes()),
+                    Updates.addToSet(transactionsField, user.getTransactions())
             );
 
             UpdateOptions options = new UpdateOptions().upsert(true);
@@ -146,7 +168,7 @@ public class UserDB {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 
-            Bson query = Filters.eq("userId", user.getUserId());
+            Bson query = Filters.eq(userIdField, user.getUserId());
 
             try {
                 collection.deleteOne(query);

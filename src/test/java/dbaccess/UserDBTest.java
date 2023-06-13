@@ -13,7 +13,7 @@ public class UserDBTest {
     UserDB userDb;
     @Before
     public void setUp() {
-        userDb = new UserDB();
+        userDb = UserDB.getInstance();
     }
 
     @After
@@ -46,7 +46,7 @@ public class UserDBTest {
         user.getLikes().add(345678901234L);
         user.getLikes().add(234567890123L);
         user.getLikes().add(987654321098L);
-        user.getTransaction().add(123456789003L);
+        user.getTransactions().add(123456789003L);
 
         userDb.insert(user);
 
@@ -62,7 +62,7 @@ public class UserDBTest {
         assertEquals(user.getRole(),foundUser.getRole());
         assertEquals(user.getCart().size(),foundUser.getCart().size());
         assertEquals(user.getLikes().size(),foundUser.getLikes().size());
-        assertEquals(user.getTransaction().size(),foundUser.getTransaction().size());
+        assertEquals(user.getTransactions().size(),foundUser.getTransactions().size());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class UserDBTest {
         assertEquals(role,user.getRole());
         assertEquals(cartLength,user.getCart().size());
         assertEquals(likeLength,user.getLikes().size());
-        assertEquals(historyLength,user.getTransaction().size());
+        assertEquals(historyLength,user.getTransactions().size());
 
     }
 

@@ -16,7 +16,7 @@ public class User {
     private Role role;
     private List<Long> cart = new ArrayList<>();
     private List<Long> likes = new ArrayList<>();
-    private List<Long> transaction = new ArrayList<>();
+    private List<Long> transactions = new ArrayList<>();
 
     public int getUserId() {
         return userId;
@@ -98,11 +98,11 @@ public class User {
         this.likes = likes;
     }
 
-    public List<Long> getTransaction() {
-        return transaction;
+    public List<Long> getTransactions() {
+        return transactions;
     }
 
-    public void setTransaction(List<Long> transaction) {
-        this.transaction = transaction;
+    public void setTransactions(List<Long> transactions) {
+        this.transactions = transactions;
     }
 }

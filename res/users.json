@@ -1,0 +1,134 @@
+[
+    {
+        "userId": 10001000,
+        "email": "user0@example.com",
+        "firstName": "Alex",
+        "lastName": "Ferit",
+        "phone": 7538642910,
+        "address": "65 Wser St, City",
+        "password": "hashed_password",
+        "role": "admin",
+        "cart": [],
+        "likes": [],
+        "transactions": []
+    },
+    {
+        "userId": 10001001,
+        "email": "user1@example.com",
+        "firstName": "Jane",
+        "lastName": "Smith",
+        "phone": 9876543210,
+        "address": "456 Elm St, City",
+        "password": "hashed_password",
+        "role": "user",
+        "cart": [
+            357896124583,
+            123985214698,
+            587436521007,
+            500005214500
+        ],
+        "likes": [
+            543210987654
+        ],
+        "transactions": [
+            1234567890,
+            2586470125,
+            3528941001
+        ]
+    },
+    {
+        "userId": 10001002,
+        "email": "user2@example.com",
+        "firstName": "John",
+        "lastName": "Doe",
+        "phone": 1234567890,
+        "address": "123 Main St, City",
+        "password": "hashed_password",
+        "role": "user",
+        "cart": [
+            123456789012,
+            987654321098,
+            456789012345,
+            543210987654
+        ],
+        "likes": [
+            500005214500,
+            369584217015
+        ],
+        "transactions": [
+            2468135790,
+            9876543210
+        ]
+    },
+    {
+        "userId": 10001003,
+        "email": "user3@example.com",
+        "firstName": "Sarah",
+        "lastName": "Johnson",
+        "phone": 9876543210,
+        "address": "789 Oak St, City",
+        "password": "hashed_password",
+        "role": "user",
+        "cart": [
+            246813579135,
+            951357924680,
+            789012345678
+        ],
+        "likes": [
+            251496301254,
+            789456123012,
+            654987120331,
+            230000120015
+        ],
+        "transactions": [
+            4321098765,
+            5678901234,
+            1357924680
+        ]
+    },
+    {
+        "userId": 10001004,
+        "email": "user4@example.com",
+        "firstName": "Michael",
+        "lastName": "Brown",
+        "phone": 1234567890,
+        "address": "789 Maple St, City",
+        "password": "hashed_password",
+        "role": "user",
+        "cart": [
+            789012345678
+        ],
+        "likes": [
+            251496301254,           
+            230000120015
+        ],
+        "transactions": [
+            9012345678
+        ]
+    },
+    {
+        "userId": 10001005,
+        "email": "user5@example.com",
+        "firstName": "Emily",
+        "lastName": "Wilson",
+        "phone": 9876543210,
+        "address": "456 Pine St, City",
+        "password": "hashed_password",
+        "role": "user",
+        "cart": [
+            876543210987,
+            135792468013,
+            246801357924,
+            987654321089
+        ],
+        "likes": [
+            326532653265,
+            987474801201
+        ],
+        "transactions": [
+            8765432109,
+            3456789012,
+            2109876543
+        ]
+    }
+]
