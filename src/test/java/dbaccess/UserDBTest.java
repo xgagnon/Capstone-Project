@@ -19,10 +19,6 @@ public class UserDBTest {
         userDb = UserDB.getInstance();
     }
 
-    @After
-    public void tearDown() {
-    }
-
     @Test
     public void testInsert() {
         int userId = 10001006;
