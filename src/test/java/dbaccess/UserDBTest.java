@@ -6,6 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class UserDBTest {
@@ -67,6 +70,38 @@ public class UserDBTest {
 
     @Test
     public void testInsertMany() {
+        User user0 = new User();
+        User user1 = new User();
+        List<User> users = new ArrayList<>();
+
+        user0.setUserId(10001009);
+        user0.setEmail("user9@example.com");
+        user0.setFirstName("first9");
+        user0.setLastName("last9");
+        user0.setPhone(987654321L);
+        user0.setAddress("421 Hash St, City");
+        user0.setPassword("hashed_password");
+        user0.setRole(Role.user);
+        users.add(user0);
+
+        user1.setUserId(10001010);
+        user1.setEmail("user10@example.com");
+        user1.setFirstName("first10");
+        user1.setLastName("last10");
+        user1.setPhone(987654321L);
+        user1.setAddress("421 Hash St, City");
+        user1.setPassword("hashed_password");
+        user1.setRole(Role.user);
+        users.add(user1);
+
+
+        userDb.insertMany(users);
+
+        User foundUser0 = userDb.find(users.get(0).getUserId());
+        User foundUser1 = userDb.find(users.get(1).getUserId());
+
+        assertNotNull(foundUser0);
+        assertNotNull(foundUser1);
     }
 
     @Test
