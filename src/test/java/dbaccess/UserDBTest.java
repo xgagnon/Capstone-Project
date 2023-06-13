@@ -101,13 +101,53 @@ public class UserDBTest {
 
     @Test
     public void testUpdate() {
-//        User user = userDb.find();
+        int userId = 10001008;
+        String email = "user8@example.com";
+        String firstName = "Jose";
+        String lastName = "Loewen";
+        long phone = 4039876543L;
+        String address = "163 Bass St, City";
+        String password = "hashed_password";
+        Role role = Role.user;
+
+        User user = new User();
+        user.setUserId(userId);
+        user.setEmail(email);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setPhone(phone);
+        user.setAddress(address);
+        user.setPassword(password);
+        user.setRole(role);
+
+        user.getCart().add(123456789012L);
+        user.getCart().add(678901234567L);
+        user.getLikes().add(345678901234L);
+        user.getLikes().add(234567890123L);
+        user.getLikes().add(987654321098L);
+        user.getTransactions().add(123456789003L);
+
+        userDb.insert(user);
+        User foundUser = userDb.find(user.getUserId());
+        assertNotNull(foundUser);
+
+        String newFirstName = "Braedon";
+        String newLastName = "Knox";
+        foundUser.setFirstName(newFirstName);
+        foundUser.setLastName(newLastName);
+
+        userDb.update(foundUser);
+        foundUser = userDb.find(foundUser.getUserId());
+        assertNotEquals(user.getFirstName(),foundUser.getFirstName());
+        assertNotEquals(user.getLastName(),foundUser.getLastName());
+        assertEquals(newFirstName,foundUser.getFirstName());
+        assertEquals(newLastName,foundUser.getLastName());
     }
 
     @Test
     public void testDelete() {
         int userId = 10001007;
-        String email = "user6@example.com";
+        String email = "user7@example.com";
         String firstName = "Jose";
         String lastName = "Loewen";
         long phone = 4039876543L;

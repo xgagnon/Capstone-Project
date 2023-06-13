@@ -141,15 +141,15 @@ public class UserDB {
 
             Bson updates = Updates.combine(
                     Updates.set(emailField, user.getEmail()),
-                    Updates.addToSet(firstNameField, user.getFirstName()),
-                    Updates.addToSet(lastNameField, user.getLastName()),
-                    Updates.addToSet(phoneField, user.getPhone()),
-                    Updates.addToSet(addressField, user.getAddress()),
-                    Updates.addToSet(passwordField, user.getPassword()),
-                    Updates.addToSet(roleField, user.getRole()),
-                    Updates.addToSet(cartField, user.getCart()),
-                    Updates.addToSet(likesField, user.getLikes()),
-                    Updates.addToSet(transactionsField, user.getTransactions())
+                    Updates.set(firstNameField, user.getFirstName()),
+                    Updates.set(lastNameField, user.getLastName()),
+                    Updates.set(phoneField, user.getPhone()),
+                    Updates.set(addressField, user.getAddress()),
+                    Updates.set(passwordField, user.getPassword()),
+                    Updates.set(roleField, user.getRole()),
+                    Updates.set(cartField, user.getCart()),
+                    Updates.set(likesField, user.getLikes()),
+                    Updates.set(transactionsField, user.getTransactions())
             );
 
             UpdateOptions options = new UpdateOptions().upsert(true);
