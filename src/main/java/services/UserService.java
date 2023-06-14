@@ -10,18 +10,21 @@ public class UserService {
     UserDB userDb = UserDB.getInstance();
 
     public void insert(User user) throws UserException {
-        User searchedUser = userDb.find(user.getEmail());
 
-        if(searchedUser != null) {
-            throw new UserException("A user with this email already exists");
+        if(userDb.find(user.getEmail()) != null) {
+            throw new UserException("A user with the email " +user.getEmail()+ " already exists");
         }
-        else {
-            userDb.insert(user);
-        }
+        userDb.insert(user);
     }
 
-    public void insertMany(List<User> users) {
+    public void insertMany(List<User> users) throws UserException {
 
+        for(User user : users) {
+            if(userDb.find(user.getEmail()) != null) {
+                throw new UserException("A user with the email " +user.getEmail()+ " already exists");
+            }
+        }
+        userDb.insertMany(users);
     }
 
     public User find(String email) {
@@ -29,10 +32,10 @@ public class UserService {
     }
 
     public void update(User user) {
-
+        userDb.update(user);
     }
 
     public void delete(User user) {
-
+        userDb.delete(user);
     }
 }
