@@ -8,6 +8,7 @@ public class UserServiceTest {
 
     @Test
     public void testInsert() {
+        //This will be a test
     }
 
     @Test
