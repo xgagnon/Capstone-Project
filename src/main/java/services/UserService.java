@@ -16,8 +16,8 @@ public class UserService {
 
     }
 
-    public void find(int userId) {
-
+    public User find(int userId) {
+        return userDb.find(userId);
     }
 
     public void update(User user) {
