@@ -1,14 +1,16 @@
 package services;
 
+import dbaccess.UserDB;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class UserServiceTest {
 
+    UserDB userDb = UserDB.getInstance();
     @Test
     public void testInsert() {
-        //This will be a test
+
     }
 
     @Test

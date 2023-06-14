@@ -13,12 +13,7 @@ import static org.junit.Assert.*;
 
 public class UserDBTest {
 
-    UserDB userDb;
-    @Before
-    public void setUp() {
-        userDb = UserDB.getInstance();
-    }
-
+    UserDB userDb = UserDB.getInstance();
     @Test
     public void testInsert() {
         int userId = 10001006;
