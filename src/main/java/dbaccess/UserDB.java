@@ -116,7 +116,7 @@ public class UserDB {
     }
 
     //Find
-    public User find(int userId){
+    public User find(String email){
         CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
         CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
@@ -125,7 +125,7 @@ public class UserDB {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);
             MongoCollection<User> collection = database.getCollection(COLLECTION_NAME, User.class);
-            user = collection.find(Filters.eq(userIdField, userId)).projection(Projections.excludeId()).first();
+            user = collection.find(Filters.eq(emailField, email)).projection(Projections.excludeId()).first();
         }
 
         return user;

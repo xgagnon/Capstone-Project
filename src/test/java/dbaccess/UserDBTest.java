@@ -49,7 +49,7 @@ public class UserDBTest {
 
         userDb.insert(user);
 
-        User foundUser = userDb.find(user.getUserId());
+        User foundUser = userDb.find(user.getEmail());
 
         assertEquals(user.getUserId(),foundUser.getUserId());
         assertEquals(user.getEmail(),foundUser.getEmail());
@@ -93,8 +93,8 @@ public class UserDBTest {
 
         userDb.insertMany(users);
 
-        User foundUser0 = userDb.find(users.get(0).getUserId());
-        User foundUser1 = userDb.find(users.get(1).getUserId());
+        User foundUser0 = userDb.find(users.get(0).getEmail());
+        User foundUser1 = userDb.find(users.get(1).getEmail());
 
         assertNotNull(foundUser0);
         assertNotNull(foundUser1);
@@ -114,7 +114,7 @@ public class UserDBTest {
         int likeLength = 4 ;
         int historyLength = 3;
 
-        User user = userDb.find(userId);
+        User user = userDb.find(email);
 
         assertEquals(userId,user.getUserId());
         assertEquals(email,user.getEmail());
@@ -159,7 +159,7 @@ public class UserDBTest {
         user.getTransactions().add(123456789003L);
 
         userDb.insert(user);
-        User foundUser = userDb.find(user.getUserId());
+        User foundUser = userDb.find(user.getEmail());
         assertNotNull(foundUser);
 
         String newFirstName = "Braedon";
@@ -168,7 +168,7 @@ public class UserDBTest {
         foundUser.setLastName(newLastName);
 
         userDb.update(foundUser);
-        foundUser = userDb.find(foundUser.getUserId());
+        foundUser = userDb.find(foundUser.getEmail());
         assertNotEquals(user.getFirstName(),foundUser.getFirstName());
         assertNotEquals(user.getLastName(),foundUser.getLastName());
         assertEquals(newFirstName,foundUser.getFirstName());
@@ -204,11 +204,11 @@ public class UserDBTest {
         user.getTransactions().add(123456789003L);
 
         userDb.insert(user);
-        User foundUser = userDb.find(user.getUserId());
+        User foundUser = userDb.find(user.getEmail());
         assertNotNull(foundUser);
 
         userDb.delete(foundUser);
-        foundUser = userDb.find(user.getUserId());
+        foundUser = userDb.find(user.getEmail());
         assertNull(foundUser);
 
     }
