@@ -9,7 +9,6 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
-import models.Transaction;
 import models.Image;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecProvider;
