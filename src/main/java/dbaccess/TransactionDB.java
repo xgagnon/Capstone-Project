@@ -73,7 +73,7 @@ public class TransactionDB {
     }
 
 
-    public void insertMany(List<Transaction> transactions) {
+    public static void insertMany(List<Transaction> transactions) {
 
         try (MongoClient mongoClient = MongoClients.create(URI)) {
 
@@ -102,7 +102,7 @@ public class TransactionDB {
         }
     }
 
-    public Transaction find(String email){
+    public static Transaction find(int transactionID){
         CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
         CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
@@ -111,13 +111,13 @@ public class TransactionDB {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);
             MongoCollection<Transaction> collection = database.getCollection(COLLECTION_NAME, Transaction.class);
-            transaction = collection.find(Filters.eq(buyerEmailField, email)).projection(Projections.excludeId()).first();
+            transaction = collection.find(Filters.eq(buyerEmailField, transactionID)).projection(Projections.excludeId()).first();
         }
 
         return transaction;
     }
 
-    public void update(Transaction transaction) {
+    public static void update(Transaction transaction) {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
 
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
@@ -144,7 +144,7 @@ public class TransactionDB {
         }
     }
 
-    public void delete(Transaction transaction) {
+    public static void delete(Transaction transaction) {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
 
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
