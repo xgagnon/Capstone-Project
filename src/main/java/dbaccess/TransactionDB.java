@@ -101,7 +101,7 @@ public class TransactionDB {
         }
     }
 
-    public static Transaction find(int transactionID){
+    public static Transaction find(long transactionID){
         CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
         CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
