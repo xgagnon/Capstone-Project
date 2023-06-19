@@ -17,7 +17,7 @@ public class Image {
 
     private int views;
 
-    private int price;
+    private double price;
 
     private String status;
 
@@ -49,9 +49,9 @@ public class Image {
 
     public void setViews(int views){this.views=views;}
 
-    public int getPrice(){return price;}
+    public double getPrice(){return price;}
 
-    public void setPrice(int price){this.price=price;}
+    public void setPrice(double price){this.price=price;}
 
     public String getStatus(){return status;}
 

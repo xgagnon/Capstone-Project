@@ -16,7 +16,6 @@ public class Transaction {
 
     private List<Long> purchasedImages = new ArrayList<>();
 
-    List <Long> images= new ArrayList<>();
 
     public int getTransactionId() {return transactionId;}
 
