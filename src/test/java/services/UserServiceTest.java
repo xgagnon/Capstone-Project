@@ -1,6 +1,7 @@
 package services;
 
 import dbaccess.UserDB;
+import exceptions.UserException;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -8,6 +9,17 @@ import static org.junit.Assert.*;
 public class UserServiceTest {
 
     UserDB userDb = UserDB.getInstance();
+
+
+    @Test
+    public void testUserError() {
+        String expectedCode = "E1001";
+        try {
+            throw new UserException("");
+        } catch (UserException e) {
+            assertEquals(expectedCode,e.getCode());
+        }
+    }
     @Test
     public void testInsert() {
 

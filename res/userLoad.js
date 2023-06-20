@@ -1,26 +1,50 @@
-[
+conn = Mongo();
+db = conn.getDB("image_store_db");
+
+db.counters.insertOne(
+   {
+      _id: "userid",
+      seq: 10000
+   }
+)
+
+function getNextSequenceUserId(name) {
+    var ret = db.counters.findAndModify(
+           {
+             query: { _id: name },
+             update: { $inc: { seq: 1 } },
+             new: true
+           }
+    );
+
+    return ret.seq;
+}
+
+db.users.insertMany( [
     {
-        "userId": 10001000,
+        "userId": getNextSequenceUserId("userid"),
         "email": "user0@example.com",
         "firstName": "Alex",
         "lastName": "Ferit",
         "phone": 7538642910,
         "address": "65 Wser St, City",
         "password": "hashed_password",
-        "role": "admin",
+        "role": ["user", "admin"],
+        "status": "active",
         "cart": [],
         "likes": [],
-        "transactions": []
+        "transaction": []
     },
     {
-        "userId": 10001001,
+        "userId": getNextSequenceUserId("userid"),
         "email": "user1@example.com",
         "firstName": "Jane",
         "lastName": "Smith",
         "phone": 9876543210,
         "address": "456 Elm St, City",
         "password": "hashed_password",
-        "role": "user",
+        "role": ["user"],
+        "status": "active",
         "cart": [
             357896124583,
             123985214698,
@@ -30,21 +54,22 @@
         "likes": [
             543210987654
         ],
-        "transactions": [
+        "transaction": [
             1234567890,
             2586470125,
             3528941001
         ]
     },
     {
-        "userId": 10001002,
+        "userId": getNextSequenceUserId("userid"),
         "email": "user2@example.com",
         "firstName": "John",
         "lastName": "Doe",
         "phone": 1234567890,
         "address": "123 Main St, City",
         "password": "hashed_password",
-        "role": "user",
+        "role": ["user"],
+        "status": "active",
         "cart": [
             123456789012,
             987654321098,
@@ -55,20 +80,21 @@
             500005214500,
             369584217015
         ],
-        "transactions": [
+        "transaction": [
             2468135790,
             9876543210
         ]
     },
     {
-        "userId": 10001003,
+        "userId": getNextSequenceUserId("userid"),
         "email": "user3@example.com",
         "firstName": "Sarah",
         "lastName": "Johnson",
         "phone": 9876543210,
         "address": "789 Oak St, City",
         "password": "hashed_password",
-        "role": "user",
+        "role": ["user"],
+        "status": "active",
         "cart": [
             246813579135,
             951357924680,
@@ -80,21 +106,22 @@
             654987120331,
             230000120015
         ],
-        "transactions": [
+        "transaction": [
             4321098765,
             5678901234,
             1357924680
         ]
     },
     {
-        "userId": 10001004,
+        "userId": getNextSequenceUserId("userid"),
         "email": "user4@example.com",
         "firstName": "Michael",
         "lastName": "Brown",
         "phone": 1234567890,
         "address": "789 Maple St, City",
         "password": "hashed_password",
-        "role": "user",
+        "role": ["user"],
+        "status": "active",
         "cart": [
             789012345678
         ],
@@ -102,19 +129,20 @@
             251496301254,           
             230000120015
         ],
-        "transactions": [
+        "transaction": [
             9012345678
         ]
     },
     {
-        "userId": 10001005,
+        "userId": getNextSequenceUserId("userid"),
         "email": "user5@example.com",
         "firstName": "Emily",
         "lastName": "Wilson",
         "phone": 9876543210,
         "address": "456 Pine St, City",
         "password": "hashed_password",
-        "role": "user",
+        "role": ["user"],
+        "status": "active",
         "cart": [
             876543210987,
             135792468013,
@@ -125,10 +153,28 @@
             326532653265,
             987474801201
         ],
-        "transactions": [
+        "transaction": [
             8765432109,
             3456789012,
             2109876543
         ]
+    },
+    {
+        "userId": getNextSequenceUserId("userid"),
+        "email": "user5@example.com",
+        "firstName": "Alice",
+        "lastName": "Nickman",
+        "phone": 3526897411,
+        "address": "9865 Friday St, City",
+        "password": "hashed_password",
+        "role": ["user"],
+        "status": "inactive",
+        "cart": [
+            125654321089
+        ],
+        "likes": [ ],
+        "transaction": [
+            2109876001
+        ]
     }
-]
+])
