@@ -183,7 +183,6 @@ public class ImageDB {
                 MongoCollection<Image> collection = database.getCollection(COLLECTION_NAME, Image.class);
                 image = collection.find(Filters.eq(tagsField, tag)).projection(Projections.excludeId()).first();
             }
-
             return image;
         }
 
