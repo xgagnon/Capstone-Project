@@ -1,33 +1,35 @@
 package models;
 
+import enums.Tags;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Image {
 
-    private int imageId;
+    private long imageId;
 
     private String title;
 
     private String description;
 
-    private String seller;
+    private int seller;
 
     private int likes;
 
     private int views;
 
-    private int price;
+    private double price;
 
     private String status;
 
     private String imageLocation;
 
-    private List<Long> tags = new ArrayList<>();
+    private Tags tags;
 
-    public int getImageId(){return imageId;}
+    public long getImageId(){return imageId;}
 
-    public void setImageId(int imageId){this.imageId=imageId;}
+    public void setImageId(long imageId){this.imageId=imageId;}
 
     public String getTitle() {return title;}
 
@@ -37,9 +39,9 @@ public class Image {
 
     public void setDescription(String description){ this.description=description;}
 
-    public String getSeller(){return seller;}
+    public int getSeller(){return seller;}
 
-    public void setSeller(String seller){this.seller=seller;}
+    public void setSeller(int seller){this.seller=seller;}
 
     public int getLikes(){return likes;}
 
@@ -49,9 +51,9 @@ public class Image {
 
     public void setViews(int views){this.views=views;}
 
-    public int getPrice(){return price;}
+    public double getPrice(){return price;}
 
-    public void setPrice(int price){this.price=price;}
+    public void setPrice(double price){this.price=price;}
 
     public String getStatus(){return status;}
 
@@ -61,7 +63,7 @@ public class Image {
 
     public void setImageLocation(String imageLocation){this.imageLocation=imageLocation;}
 
-    public List<Long> getTags() {return tags;}
+    public Tags getTags() {return tags;}
 
-    public void setTags(List<Long> tags) {this.tags = tags;}
+    public void setTags(Tags tags) {this.tags = tags;}
 }

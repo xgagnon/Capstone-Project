@@ -1,16 +1,11 @@
 package dbaccess;
 
 import com.mongodb.MongoException;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Projections;
-import com.mongodb.client.model.UpdateOptions;
-import com.mongodb.client.model.Updates;
+
+import com.mongodb.client.*;
+
+import com.mongodb.client.model.*;
 import models.Image;
-import models.User;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecProvider;
 import org.bson.codecs.configuration.CodecRegistry;
@@ -109,7 +104,7 @@ public class ImageDB {
         }
     }
 
-    public Image find(int imageId) {
+    public Image find(long imageId) {
         CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
         CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
