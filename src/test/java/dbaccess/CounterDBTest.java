@@ -28,7 +28,8 @@ public class CounterDBTest {
         assertNotNull(counter);
         assertEquals(10008, updatedCounter.getSeq());
 
-
+        //After Update test, make sure to manually change counter
+        //back to original value (10007)
     }
 
 }
