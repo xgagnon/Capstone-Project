@@ -9,6 +9,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
+import models.Counter;
 import models.User;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecProvider;
@@ -60,10 +61,15 @@ public class UserDB {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 
+            CounterDB counterDB = CounterDB.getInstance();
+            Counter counter = counterDB.find("userId");
+            counter.incrementSeq();
+            counterDB.update(counter);
+
             try {
                 collection.insertOne(new Document()
                         .append("_id", new ObjectId())
-                        .append(userIdField, user.getUserId())
+                        .append(userIdField, counter.getSeq())
                         .append(emailField, user.getEmail())
                         .append(firstNameField, user.getFirstName())
                         .append(lastNameField, user.getLastName())
