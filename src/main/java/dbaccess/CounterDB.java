@@ -63,7 +63,7 @@ public class CounterDB {
             Document query = new Document().append("_id",  counter.getId());
 
             Bson updates = Updates.combine(
-                    Updates.set("_id", counter.getSeq())
+                    Updates.set("seq", counter.getSeq())
             );
 
             UpdateOptions options = new UpdateOptions().upsert(true);
