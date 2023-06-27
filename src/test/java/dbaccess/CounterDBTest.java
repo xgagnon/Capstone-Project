@@ -15,4 +15,20 @@ public class CounterDBTest {
         assertEquals(10007, counter.getSeq());
     }
 
+    @Test
+    public void testUpdate() {
+        Counter counter = counterDB.find("userid");
+        assertNotNull(counter);
+        assertEquals(10007, counter.getSeq());
+
+        counter.incrementSeq();
+        counterDB.update(counter);
+
+        Counter updatedCounter = counterDB.find("userid");
+        assertNotNull(counter);
+        assertEquals(10008, updatedCounter.getSeq());
+
+
+    }
+
 }

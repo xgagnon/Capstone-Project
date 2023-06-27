@@ -21,4 +21,8 @@ public class Counter {
         this.id = id;
     }
 
+    public void incrementSeq() {
+        this.seq++;
+    }
+
 }
