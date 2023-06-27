@@ -14,7 +14,7 @@ public class CounterDBTest {
 
     @Test
     public void testFindUserId() {
-        Counter counter = counterDB.find("userid");
+        Counter counter = counterDB.find("userId");
         assertNotNull(counter);
         assertEquals(10007, counter.getSeq());
     }
@@ -35,7 +35,7 @@ public class CounterDBTest {
 
     @Test
     public void testUpdateUserId() {
-        Counter counter = counterDB.find("userid");
+        Counter counter = counterDB.find("userId");
         assertNotNull(counter);
         assertEquals(10007, counter.getSeq());
 

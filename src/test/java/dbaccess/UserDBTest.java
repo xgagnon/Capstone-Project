@@ -98,16 +98,16 @@ public class UserDBTest {
 
     @Test
     public void testFind() {
-        int userId = 10001003;
-        String email = "user3@example.com";
-        String firstName = "Sarah";
-        String lastName = "Johnson";
+        int userId = 10002;
+        String email = "user1@example.com";
+        String firstName = "Jane";
+        String lastName = "Smith";
         long phone = 9876543210L;
-        String address = "789 Oak St, City";
+        String address = "456 Elm St, City";
         String password = "hashed_password";
         Role role = Role.user;
-        int cartLength = 3;
-        int likeLength = 4 ;
+        int cartLength = 4;
+        int likeLength = 1;
         int historyLength = 3;
 
         User user = userDb.find(email);
