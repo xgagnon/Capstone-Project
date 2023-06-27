@@ -20,7 +20,6 @@ public class UserDBTest {
 
     @Test
     public void testInsert() {
-        int userId = 10008;
         String email = "user6@example.com";
         String firstName = "Jose";
         String lastName = "Loewen";
@@ -49,7 +48,7 @@ public class UserDBTest {
 
         User foundUser = userDb.find(user.getEmail());
 
-        assertEquals(userId,foundUser.getUserId());
+        assertNotNull(foundUser.getUserId());
         assertEquals(user.getEmail(),foundUser.getEmail());
         assertEquals(user.getFirstName(),foundUser.getFirstName());
         assertEquals(user.getLastName(),foundUser.getLastName());

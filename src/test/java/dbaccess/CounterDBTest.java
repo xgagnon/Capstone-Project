@@ -42,7 +42,7 @@ public class CounterDBTest {
         counter.incrementSeq();
         counterDB.update(counter);
 
-        Counter updatedCounter = counterDB.find("userid");
+        Counter updatedCounter = counterDB.find("userId");
         assertNotNull(counter);
         assertEquals(10008, updatedCounter.getSeq());
 
