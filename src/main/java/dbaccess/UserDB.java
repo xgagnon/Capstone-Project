@@ -96,10 +96,15 @@ public class UserDB {
 
             List<Document> userList = new ArrayList<>();
 
+            CounterDB counterDB = CounterDB.getInstance();
+            Counter counter = counterDB.find("userId");
+            counter.incrementSeq();
+            counterDB.update(counter);
+
             for(User user : users) {
                 userList.add(new Document()
                         .append("_id", new ObjectId())
-                        .append(userIdField, user.getUserId())
+                        .append(userIdField, counter.getSeq())
                         .append(emailField, user.getEmail())
                         .append(firstNameField, user.getFirstName())
                         .append(lastNameField, user.getLastName())
@@ -111,6 +116,9 @@ public class UserDB {
                         .append(likesField, user.getLikes())
                         .append(transactionsField, user.getTransactions())
                 );
+
+                counter.incrementSeq();
+                counterDB.update(counter);
             }
 
             try {
