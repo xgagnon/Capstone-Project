@@ -1,5 +1,6 @@
 package exceptions;
 
+
 public class TransactionException  extends Exception{
 
     private final String code = "E1002";

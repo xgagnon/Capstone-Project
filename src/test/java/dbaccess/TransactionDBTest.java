@@ -18,10 +18,10 @@ public class TransactionDBTest {
     @Test
     public void testInsertTransaction() {
 
-         long transactionId = 123456789030L;
-         String date = "Thu May 24 2023 18:12:41 GMT-0600 (Mountain Daylight Saving Time)";
-         double price = 35.98;
-         ArrayList<Long> purchasedImages;
+        long transactionId = 123456789030L;
+        String date = "Thu May 24 2023 18:12:41 GMT-0600 (Mountain Daylight Saving Time)";
+        double price = 35.98;
+        ArrayList<Long> purchasedImages;
         String buyerEmail = "buyer1@example.com";
         String status =  "Completed";
 
