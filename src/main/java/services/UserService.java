@@ -9,12 +9,13 @@ import java.util.List;
 public class UserService {
     UserDB userDb = UserDB.getInstance();
 
-    public void insert(User user) throws UserException {
+    public User insert(User user) throws UserException {
 
 //        if(userDb.find(user.getEmail()) != null) {
 //            throw new UserException("A user with the email " +user.getEmail()+ " already exists");
 //        }
         userDb.insert(user);
+        return user;
     }
 
     public void insertMany(List<User> users) throws UserException {
