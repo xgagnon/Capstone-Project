@@ -19,7 +19,7 @@ public class UserController {
         return new ResponseEntity<User>(service.find(email), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<User> insert(@RequestBody User user) throws UserException {
         return ResponseEntity.ok(this.service.insert(user));
     }
