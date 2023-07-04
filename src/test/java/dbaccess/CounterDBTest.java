@@ -48,6 +48,7 @@ public class CounterDBTest {
 
         //After Update test, make sure to manually change counter
         //back to original value (10007)
+        //or rebuild the database
     }
 
     @Test
@@ -64,7 +65,8 @@ public class CounterDBTest {
         assertEquals(1000000011, updatedCounter.getSeq());
 
         //After Update test, make sure to manually change counter
-        //back to original value (10007)
+        //back to original value (1000000010)
+        //or rebuild the database
     }
 
     @Test
@@ -81,7 +83,8 @@ public class CounterDBTest {
         assertEquals(1000000007, updatedCounter.getSeq());
 
         //After Update test, make sure to manually change counter
-        //back to original value (10007)
+        //back to original value (1000000006)
+        //or rebuild the database
     }
 
 }
