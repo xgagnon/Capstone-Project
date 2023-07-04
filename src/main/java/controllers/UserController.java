@@ -13,10 +13,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+
     @Autowired
     private UserService service;
 
-//    @GetMapping("/{email}")
     @RequestMapping(value = "/{email}", method = RequestMethod.GET)
     public ResponseEntity<User>find(@PathVariable("email") String email) {
         return new ResponseEntity<User>(service.find(email), HttpStatus.OK);
