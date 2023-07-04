@@ -1,17 +1,24 @@
 package services;
 
 import dbaccess.TransactionDB;
+import exceptions.TransactionException;
 import org.junit.Test;
 
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class TransactionServiceTest {
     TransactionDB transactionDB = TransactionDB.getInstance();
 
+    @Test
+    public void testTransactionError() {
+        String expectedCode = "E1002";
+        try {
+            throw new TransactionException("");
+        } catch (TransactionException e) {
+            assertEquals(expectedCode,e.getCode());
+        }
+    }
     @Test
     public void testInsertTransaction() {
     }
