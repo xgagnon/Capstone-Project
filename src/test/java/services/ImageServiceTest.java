@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class UserServiceTest {
+public class ImageServiceTest {
 
     ImageDB imageDb = ImageDB.getInstance();
 
@@ -17,7 +17,7 @@ public class UserServiceTest {
         try {
             throw new ImageException("");
         } catch (ImageException e) {
-            assertEquals(expectedCode,e.getCode());
+            assertEquals(expectedCode, e.getCode());
         }
     }
 
@@ -98,3 +98,4 @@ public class UserServiceTest {
     @Test
     public void testDeleteInvalidImageId() {
     }
+}

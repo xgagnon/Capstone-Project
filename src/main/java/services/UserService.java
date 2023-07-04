@@ -11,19 +11,19 @@ public class UserService {
 
     public void insert(User user) throws UserException {
 
-        if(userDb.find(user.getEmail()) != null) {
-            throw new UserException("A user with the email " +user.getEmail()+ " already exists");
-        }
+//        if(userDb.find(user.getEmail()) != null) {
+//            throw new UserException("A user with the email " +user.getEmail()+ " already exists");
+//        }
         userDb.insert(user);
     }
 
     public void insertMany(List<User> users) throws UserException {
 
-        for(User user : users) {
-            if(userDb.find(user.getEmail()) != null) {
-                throw new UserException("A user with the email " +user.getEmail()+ " already exists");
-            }
-        }
+//        for(User user : users) {
+//            if(userDb.find(user.getEmail()) != null) {
+//                throw new UserException("A user with the email " +user.getEmail()+ " already exists");
+//            }
+//        }
         userDb.insertMany(users);
     }
 
