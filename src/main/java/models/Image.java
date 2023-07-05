@@ -25,7 +25,7 @@ public class Image {
 
     private String imageLocation;
 
-    private Tags tags;
+    private ArrayList<Tags> tags = new ArrayList<>();
 
     public long getImageId(){return imageId;}
 
@@ -57,13 +57,13 @@ public class Image {
 
     public String getStatus(){return status;}
 
-    public void setStatus(String Status){ this.status=status;}
+    public void setStatus(String status){ this.status=status;}
 
     public String getImageLocation(){return imageLocation;}
 
     public void setImageLocation(String imageLocation){this.imageLocation=imageLocation;}
 
-    public Tags getTags() {return tags;}
+    public ArrayList<Tags> getTags() {return tags;}
 
-    public void setTags(Tags tags) {this.tags = tags;}
+    public void setTags(ArrayList<Tags> tags) {this.tags = tags;}
 }
