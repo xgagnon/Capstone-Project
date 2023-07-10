@@ -32,11 +32,13 @@ public class UserService {
         return userDb.find(email);
     }
 
-    public void update(User user) {
+    public User update(User user) {
         userDb.update(user);
+        return user;
     }
 
-    public void delete(User user) {
+    public User delete(User user) {
         userDb.delete(user);
+        return user;
     }
 }

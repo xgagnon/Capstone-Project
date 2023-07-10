@@ -23,4 +23,16 @@ public class UserController {
     public ResponseEntity<User> insert(@RequestBody User user) throws UserException {
         return ResponseEntity.ok(this.service.insert(user));
     }
-}
+
+    //insert many
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity update(@RequestBody User user) {
+        return ResponseEntity.ok(service.update(user));
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    public ResponseEntity delete(@RequestBody User user) {
+        return ResponseEntity.ok(service.delete(user));
+    }
+ }
