@@ -32,6 +32,7 @@ public class UserDB {
     public static final String COLLECTION_NAME = "users";
 
     public static final String userIdField = "userId";
+    public static final String uidField = "uid";
     public static final String emailField = "email";
     public static final String firstNameField = "firstName";
     public static final String lastNameField = "lastName";
@@ -70,6 +71,7 @@ public class UserDB {
                 collection.insertOne(new Document()
                         .append("_id", new ObjectId())
                         .append(userIdField, counter.getSeq())
+                        .append(uidField, user.getUid())
                         .append(emailField, user.getEmail())
                         .append(firstNameField, user.getFirstName())
                         .append(lastNameField, user.getLastName())
@@ -105,6 +107,7 @@ public class UserDB {
                 userList.add(new Document()
                         .append("_id", new ObjectId())
                         .append(userIdField, counter.getSeq())
+                        .append(uidField, user.getUid())
                         .append(emailField, user.getEmail())
                         .append(firstNameField, user.getFirstName())
                         .append(lastNameField, user.getLastName())
@@ -130,7 +133,7 @@ public class UserDB {
     }
 
     //Find
-    public User find(String email){
+    public User find(String uid){
         CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
         CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
@@ -139,7 +142,7 @@ public class UserDB {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);
             MongoCollection<User> collection = database.getCollection(COLLECTION_NAME, User.class);
-            user = collection.find(Filters.eq(emailField, email)).projection(Projections.excludeId()).first();
+            user = collection.find(Filters.eq(uidField, uid)).projection(Projections.excludeId()).first();
         }
 
         return user;
@@ -154,6 +157,7 @@ public class UserDB {
             Document query = new Document().append(userIdField,  user.getUserId());
 
             Bson updates = Updates.combine(
+                    Updates.set(uidField, user.getUid()),
                     Updates.set(emailField, user.getEmail()),
                     Updates.set(firstNameField, user.getFirstName()),
                     Updates.set(lastNameField, user.getLastName()),
