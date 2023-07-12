@@ -87,48 +87,6 @@ public class UserDB {
         }
     }
 
-    public void insertMany(List<User> users) {
-
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
-
-            MongoDatabase database = mongoClient.getDatabase(DB_NAME);
-            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
-
-            List<Document> userList = new ArrayList<>();
-
-            CounterDB counterDB = CounterDB.getInstance();
-            Counter counter = counterDB.find("userId");
-            counter.incrementSeq();
-            counterDB.update(counter);
-
-            for(User user : users) {
-                userList.add(new Document()
-                        .append("_id", new ObjectId())
-                        .append(userIdField, counter.getSeq())
-                        .append(emailField, user.getEmail())
-                        .append(firstNameField, user.getFirstName())
-                        .append(lastNameField, user.getLastName())
-                        .append(phoneField, user.getPhone())
-                        .append(addressField, user.getAddress())
-                        .append(passwordField, user.getPassword())
-                        .append(roleField, user.getRole())
-                        .append(cartField, user.getCart())
-                        .append(likesField, user.getLikes())
-                        .append(transactionsField, user.getTransactions())
-                );
-
-                counter.incrementSeq();
-                counterDB.update(counter);
-            }
-
-            try {
-                collection.insertMany(userList);
-            } catch (MongoException me) {
-                System.err.println("Unable to insert due to an error: " + me);
-            }
-        }
-    }
-
     //Find
     public User find(String email){
         CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();

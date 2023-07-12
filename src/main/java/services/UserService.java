@@ -18,16 +18,6 @@ public class UserService {
         return user;
     }
 
-    public void insertMany(List<User> users) throws UserException {
-
-//        for(User user : users) {
-//            if(userDb.find(user.getEmail()) != null) {
-//                throw new UserException("A user with the email " +user.getEmail()+ " already exists");
-//            }
-//        }
-        userDb.insertMany(users);
-    }
-
     public User find(String email) {
         return userDb.find(email);
     }
