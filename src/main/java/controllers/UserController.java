@@ -24,8 +24,6 @@ public class UserController {
         return ResponseEntity.ok(this.service.insert(user));
     }
 
-    //insert many
-
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody User user) {
         return ResponseEntity.ok(service.update(user));
