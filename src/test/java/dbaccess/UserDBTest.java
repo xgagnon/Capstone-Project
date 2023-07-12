@@ -1,5 +1,6 @@
 package dbaccess;
 
+import com.google.firebase.auth.FirebaseAuthException;
 import enums.Role;
 import models.User;
 import org.junit.After;
@@ -8,6 +9,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +21,14 @@ public class UserDBTest {
     UserDB userDb = UserDB.getInstance();
 
     @Test
-    public void testInsert() {
-        String email = "user6@example.com";
+    public void testInsert() throws FirebaseAuthException, IOException {
+        String email = "user7@example.com";
         String firstName = "Jose";
         String lastName = "Loewen";
         long phone = 4039876543L;
         String address = "163 Bass St, City";
-        String password = "hashed_password";
         Role role = Role.user;
+        String password = "password";
 
         User user = new User();
         user.setEmail(email);
@@ -34,8 +36,8 @@ public class UserDBTest {
         user.setLastName(lastName);
         user.setPhone(phone);
         user.setAddress(address);
-        user.setPassword(password);
         user.setRole(role);
+        user.setPassword(password);
 
         user.getCart().add(123456789012L);
         user.getCart().add(678901234567L);
@@ -49,12 +51,12 @@ public class UserDBTest {
         User foundUser = userDb.find(user.getEmail());
 
         assertNotNull(foundUser.getUserId());
+        assertNotNull(foundUser.getUid());
         assertEquals(user.getEmail(),foundUser.getEmail());
         assertEquals(user.getFirstName(),foundUser.getFirstName());
         assertEquals(user.getLastName(),foundUser.getLastName());
         assertEquals(user.getPhone(),foundUser.getPhone());
         assertEquals(user.getAddress(),foundUser.getAddress());
-        assertEquals(user.getPassword(),foundUser.getPassword());
         assertEquals(user.getRole(),foundUser.getRole());
         assertEquals(user.getCart().size(),foundUser.getCart().size());
         assertEquals(user.getLikes().size(),foundUser.getLikes().size());
@@ -64,12 +66,12 @@ public class UserDBTest {
     @Test
     public void testFind() {
         int userId = 10002;
+        String uid = "HO7oPmssUzSDtpx1MC4ZkxduUlj1";
         String email = "user1@example.com";
         String firstName = "Jane";
         String lastName = "Smith";
         long phone = 9876543210L;
         String address = "456 Elm St, City";
-        String password = "hashed_password";
         Role role = Role.user;
         int cartLength = 4;
         int likeLength = 1;
@@ -78,12 +80,12 @@ public class UserDBTest {
         User user = userDb.find(email);
 
         assertEquals(userId,user.getUserId());
+        assertEquals(uid,user.getUid());
         assertEquals(email,user.getEmail());
         assertEquals(firstName,user.getFirstName());
         assertEquals(lastName,user.getLastName());
         assertEquals(phone,user.getPhone());
         assertEquals(address,user.getAddress());
-        assertEquals(password,user.getPassword());
         assertEquals(role,user.getRole());
         assertEquals(cartLength,user.getCart().size());
         assertEquals(likeLength,user.getLikes().size());
@@ -92,13 +94,12 @@ public class UserDBTest {
     }
 
     @Test
-    public void testUpdate() {
+    public void testUpdate() throws FirebaseAuthException, IOException {
         String email = "user8@example.com";
         String firstName = "Jose";
         String lastName = "Loewen";
         long phone = 4039876543L;
         String address = "163 Bass St, City";
-        String password = "hashed_password";
         Role role = Role.user;
 
         User user = new User();
@@ -107,7 +108,6 @@ public class UserDBTest {
         user.setLastName(lastName);
         user.setPhone(phone);
         user.setAddress(address);
-        user.setPassword(password);
         user.setRole(role);
 
         user.getCart().add(123456789012L);
@@ -135,8 +135,8 @@ public class UserDBTest {
     }
 
     @Test
-    public void testDelete() {
-        String email = "user7@example.com";
+    public void testDelete() throws FirebaseAuthException, IOException {
+        String email = "user9@example.com";
         String firstName = "Jose";
         String lastName = "Loewen";
         long phone = 4039876543L;
@@ -150,7 +150,6 @@ public class UserDBTest {
         user.setLastName(lastName);
         user.setPhone(phone);
         user.setAddress(address);
-        user.setPassword(password);
         user.setRole(role);
 
         user.getCart().add(123456789012L);

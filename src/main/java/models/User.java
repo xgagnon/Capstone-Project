@@ -8,12 +8,12 @@ import enums.Role;
 public class User {
     private int userId;
     private String uid;
+    private transient String password;
     private String email;
     private String firstName;
     private String lastName;
     private long phone;
     private String address;
-    private String password;
     private Role role;
     private List<Long> cart = new ArrayList<>();
     private List<Long> likes = new ArrayList<>();
@@ -26,11 +26,21 @@ public class User {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
     public String getUid() {
         return uid;
     }
+
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -71,14 +81,6 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Role getRole() {

@@ -1,5 +1,12 @@
 package dbaccess;
 
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.UserRecord;
+import com.google.firebase.database.FirebaseDatabase;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -17,7 +24,9 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
+import services.FireBaseService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,40 +65,55 @@ public class UserDB {
         return instance;
     }
 
-    public void insert(User user) {
+    public void insert(User user) throws FirebaseAuthException, IOException {
+
+        CounterDB counterDB = CounterDB.getInstance();
+        Counter counter = counterDB.find("userId");
+        counter.incrementSeq();
+        counterDB.update(counter);
+
+        FirebaseDatabase firebase = new FireBaseService().getDb();
+
+        String uid = String.valueOf(counter);
+        String customToken = FirebaseAuth.getInstance().createCustomToken(uid);
+        String shortToken = customToken.substring(customToken.length()-29);
+
         try (MongoClient mongoClient = MongoClients.create(URI)) {
 
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 
-            CounterDB counterDB = CounterDB.getInstance();
-            Counter counter = counterDB.find("userId");
-            counter.incrementSeq();
-            counterDB.update(counter);
-
             try {
                 collection.insertOne(new Document()
                         .append("_id", new ObjectId())
                         .append(userIdField, counter.getSeq())
-                        .append(uidField, user.getUid())
+                        .append(uidField, shortToken)
                         .append(emailField, user.getEmail())
                         .append(firstNameField, user.getFirstName())
                         .append(lastNameField, user.getLastName())
                         .append(phoneField, user.getPhone())
                         .append(addressField, user.getAddress())
-                        .append(passwordField, user.getPassword())
                         .append(roleField, user.getRole())
                         .append(cartField, user.getCart())
                         .append(likesField, user.getLikes())
                         .append(transactionsField, user.getTransactions())
                 );
+
+                UserRecord.CreateRequest request = new UserRecord.CreateRequest()
+                        .setUid(shortToken)
+                        .setEmail(user.getEmail())
+                        .setEmailVerified(false)
+                        .setPassword(user.getPassword())
+                        .setDisabled(false);
+
+                FirebaseAuth.getInstance().createUser(request);
             } catch (MongoException me) {
                 System.err.println("Unable to insert due to an error: " + me);
             }
         }
     }
     
-    public User find(String uid){
+    public User find(String email){
         CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
         CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
@@ -98,7 +122,7 @@ public class UserDB {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);
             MongoCollection<User> collection = database.getCollection(COLLECTION_NAME, User.class);
-            user = collection.find(Filters.eq(uidField, uid)).projection(Projections.excludeId()).first();
+            user = collection.find(Filters.eq(emailField, email)).projection(Projections.excludeId()).first();
         }
 
         return user;
@@ -119,7 +143,6 @@ public class UserDB {
                     Updates.set(lastNameField, user.getLastName()),
                     Updates.set(phoneField, user.getPhone()),
                     Updates.set(addressField, user.getAddress()),
-                    Updates.set(passwordField, user.getPassword()),
                     Updates.set(roleField, user.getRole()),
                     Updates.set(cartField, user.getCart()),
                     Updates.set(likesField, user.getLikes()),

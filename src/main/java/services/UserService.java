@@ -1,15 +1,17 @@
 package services;
 
+import com.google.firebase.auth.FirebaseAuthException;
 import dbaccess.UserDB;
 import exceptions.UserException;
 import models.User;
 
+import java.io.IOException;
 import java.util.List;
 
 public class UserService {
     UserDB userDb = UserDB.getInstance();
 
-    public User insert(User user) throws UserException {
+    public User insert(User user) throws UserException, FirebaseAuthException, IOException {
 
 //        if(userDb.find(user.getEmail()) != null) {
 //            throw new UserException("A user with the email " +user.getEmail()+ " already exists");

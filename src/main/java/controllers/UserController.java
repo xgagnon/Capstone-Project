@@ -1,11 +1,14 @@
 package controllers;
 
+import com.google.firebase.auth.FirebaseAuthException;
 import exceptions.UserException;
 import models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.UserService;
+
+import java.io.IOException;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -20,7 +23,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<User> insert(@RequestBody User user) throws UserException {
+    public ResponseEntity<User> insert(@RequestBody User user) throws UserException, FirebaseAuthException, IOException {
         return ResponseEntity.ok(this.service.insert(user));
     }
 
