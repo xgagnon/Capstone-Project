@@ -98,7 +98,7 @@ public class ImageDB {
 
             List<Document> imageList = new ArrayList<>();
             for (Image image : images) {
-                collection.insertOne(new Document()
+                imageList.add(new Document()
                         .append("_id", new ObjectId())
                         .append(imageIdField, image.getImageId())
                         .append(titleField, image.getTitle())
@@ -193,6 +193,7 @@ public class ImageDB {
         }
         return image;
     }
+
 
 
 }
