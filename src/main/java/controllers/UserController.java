@@ -14,9 +14,9 @@ public class UserController {
 
     private UserService service = new UserService();
 
-    @RequestMapping(value = "/{email}", method = RequestMethod.GET)
-    public ResponseEntity<User>find(@PathVariable("email") String email) {
-        return new ResponseEntity<User>(service.find(email), HttpStatus.OK);
+    @RequestMapping(value = "/{uid}", method = RequestMethod.GET)
+    public ResponseEntity<User>find(@PathVariable("uid") String uid) {
+        return new ResponseEntity<User>(service.find(uid), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)

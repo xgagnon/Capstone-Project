@@ -7,6 +7,7 @@ import enums.Role;
 
 public class User {
     private int userId;
+    private String uid;
     private String email;
     private String firstName;
     private String lastName;
@@ -24,6 +25,12 @@ public class User {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+    public String getUid() {
+        return uid;
+    }
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getEmail() {
