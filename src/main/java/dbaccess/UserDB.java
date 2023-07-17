@@ -7,7 +7,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.database.FirebaseDatabase;
-import com.mongodb.MongoException;
+import com.mongodb.*;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -25,6 +25,7 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import services.FireBaseService;
+import services.MongoService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 public class UserDB {
 
-    public static final String URI = "mongodb://localhost:27017";
+    //public static final String URI = "mongodb://localhost:27017";
     public static final String DB_NAME = "image_store_db";
     public static final String COLLECTION_NAME = "users";
 
@@ -74,20 +75,31 @@ public class UserDB {
 
         FirebaseDatabase firebase = new FireBaseService().getDb();
 
-        String uid = String.valueOf(counter);
+        /*String uid = String.valueOf(counter);
         String customToken = FirebaseAuth.getInstance().createCustomToken(uid);
-        String shortToken = customToken.substring(customToken.length()-29);
+        String shortToken = customToken.substring(customToken.length()-29);*/
 
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
+        //try (MongoClient mongoClient = MongoClients.create(URI)) {
+
+
+        try (MongoClient mongoClient = new MongoService().getClient()) {
 
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 
             try {
+                UserRecord.CreateRequest request = new UserRecord.CreateRequest()
+                        .setEmail(user.getEmail())
+                        .setEmailVerified(false)
+                        .setPassword(user.getPassword())
+                        .setDisabled(false);
+
+                UserRecord userRecord = FirebaseAuth.getInstance().createUser(request);
+
                 collection.insertOne(new Document()
                         .append("_id", new ObjectId())
                         .append(userIdField, counter.getSeq())
-                        .append(uidField, shortToken)
+                        .append(uidField, userRecord.getUid())
                         .append(emailField, user.getEmail())
                         .append(firstNameField, user.getFirstName())
                         .append(lastNameField, user.getLastName())
@@ -99,14 +111,6 @@ public class UserDB {
                         .append(transactionsField, user.getTransactions())
                 );
 
-                UserRecord.CreateRequest request = new UserRecord.CreateRequest()
-                        .setUid(shortToken)
-                        .setEmail(user.getEmail())
-                        .setEmailVerified(false)
-                        .setPassword(user.getPassword())
-                        .setDisabled(false);
-
-                FirebaseAuth.getInstance().createUser(request);
             } catch (MongoException me) {
                 System.err.println("Unable to insert due to an error: " + me);
             }
@@ -119,7 +123,8 @@ public class UserDB {
 
         User user;
 
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
+        //try (MongoClient mongoClient = MongoClients.create(URI)) {
+        try (MongoClient mongoClient = new MongoService().getClient()) {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);
             MongoCollection<User> collection = database.getCollection(COLLECTION_NAME, User.class);
             user = collection.find(Filters.eq(emailField, email)).projection(Projections.excludeId()).first();
@@ -129,8 +134,8 @@ public class UserDB {
     }
 
     public void update(User user) {
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
-
+        //try (MongoClient mongoClient = MongoClients.create(URI)) {
+        try (MongoClient mongoClient = new MongoService().getClient()) {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 
@@ -160,8 +165,8 @@ public class UserDB {
     }
 
     public void delete(User user) {
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
-
+        //try (MongoClient mongoClient = MongoClients.create(URI)) {
+        try (MongoClient mongoClient = new MongoService().getClient()) {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 

@@ -15,11 +15,12 @@ public class FireBaseService {
     FirebaseDatabase db;
 
     public FireBaseService() throws IOException {
-        File file = new File(
+        /*File file = new File(
                 getClass().getClassLoader().getResource("key.json").getFile()
-        );
+        );*/
 
-        FileInputStream fis = new FileInputStream(file);
+        //FileInputStream fis = new FileInputStream(file);
+        FileInputStream fis = new FileInputStream("C:\\Users\\vitor\\IdeaProjects\\Capstone-Project\\res\\key.json");
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(fis))

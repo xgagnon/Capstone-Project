@@ -22,7 +22,7 @@ public class UserDBTest {
 
     @Test
     public void testInsert() throws FirebaseAuthException, IOException {
-        String email = "user7@example.com";
+        String email = "user9@example.com";
         String firstName = "Jose";
         String lastName = "Loewen";
         long phone = 4039876543L;
@@ -65,17 +65,17 @@ public class UserDBTest {
 
     @Test
     public void testFind() {
-        int userId = 10002;
-        String uid = "HO7oPmssUzSDtpx1MC4ZkxduUlj1";
-        String email = "user1@example.com";
-        String firstName = "Jane";
-        String lastName = "Smith";
-        long phone = 9876543210L;
-        String address = "456 Elm St, City";
-        Role role = Role.user;
-        int cartLength = 4;
-        int likeLength = 1;
-        int historyLength = 3;
+        int userId = 1000010;
+        String uid = "JHGB34JMHBJK345MHB346MMNC";
+        String email = "admin@example.com";
+        String firstName = "Alex2";
+        String lastName = "Ferit2";
+        long phone = 7538642910L;
+        String address = "65 Wser St, City";
+        Role role = Role.admin;
+        int cartLength = 0;
+        int likeLength = 0;
+        int historyLength = 0;
 
         User user = userDb.find(email);
 
@@ -95,20 +95,26 @@ public class UserDBTest {
 
     @Test
     public void testUpdate() throws FirebaseAuthException, IOException {
-        String email = "user8@example.com";
+        int userId = 10047;
+        String uid = "K13aBxBlX5hnvjPkoFEmpLQgYPy1";
+        String email = "user9@example.com";
         String firstName = "Jose";
         String lastName = "Loewen";
         long phone = 4039876543L;
         String address = "163 Bass St, City";
         Role role = Role.user;
+        String password = "password";
 
         User user = new User();
+        user.setUserId(userId);
+        user.setUid(uid);
         user.setEmail(email);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setPhone(phone);
         user.setAddress(address);
         user.setRole(role);
+        user.setPassword(password);
 
         user.getCart().add(123456789012L);
         user.getCart().add(678901234567L);
@@ -117,7 +123,7 @@ public class UserDBTest {
         user.getLikes().add(987654321098L);
         user.getTransactions().add(123456789003L);
 
-        userDb.insert(user);
+        //userDb.insert(user);
         User foundUser = userDb.find(user.getEmail());
         assertNotNull(foundUser);
 
