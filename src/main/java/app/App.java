@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import services.FireBaseService;
 
 import java.io.IOException;
-//Test commit after transfer of ownership
+
 @SpringBootApplication
 @ComponentScan(basePackageClasses = UserController.class)
 public class App {
