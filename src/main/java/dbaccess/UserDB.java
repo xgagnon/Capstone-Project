@@ -71,7 +71,7 @@ public class UserDB {
     public void insert(User user) throws FirebaseAuthException, IOException {
 
         CounterDB counterDB = CounterDB.getInstance();
-        Counter counter = counterDB.find("userId");
+        Counter counter = counterDB.find("userid");
         counter.incrementSeq();
         counterDB.update(counter);
 

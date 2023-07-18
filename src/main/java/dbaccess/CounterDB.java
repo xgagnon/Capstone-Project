@@ -15,6 +15,7 @@ import org.bson.codecs.configuration.CodecProvider;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
+import services.MongoService;
 
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
@@ -45,7 +46,7 @@ public class CounterDB {
 
         Counter counter;
 
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
+        try (MongoClient mongoClient = new MongoService().getClient()) {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);
             MongoCollection<Counter> collection = database.getCollection(COLLECTION_NAME, Counter.class);
             counter = collection.find(Filters.eq("_id", id)).first();
@@ -55,7 +56,7 @@ public class CounterDB {
     }
 
     public void update(Counter counter) {
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
+        try (MongoClient mongoClient = new MongoService().getClient()) {
 
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);

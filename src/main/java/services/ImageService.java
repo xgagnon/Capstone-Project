@@ -1,6 +1,7 @@
 package services;
 import dbaccess.ImageDB;
 import models.Image;
+import org.bson.Document;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class ImageService {
         imageDB.insertMany(images);
     }
 
-    public Image find(Long imageId){
+    public Image find(int imageId){
         return imageDB.find(imageId);
     }
 
@@ -28,6 +29,10 @@ public class ImageService {
     public Image delete(Image image){
         imageDB.delete(image);
         return image;
+    }
+
+    public List<Document> findAll() {
+        return imageDB.findAll();
     }
 
     public void validate(Image image){

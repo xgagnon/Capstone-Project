@@ -56,7 +56,7 @@ public class ImageDBTest {
     }
     @Test
     public void testInsert(){
-        long imageId = 987654321098L;
+        int imageId = 876543210;
         String title = "Image 2";
         String description = "Image 2 Description";
         int seller = 87654321;
@@ -92,7 +92,7 @@ public class ImageDBTest {
     }
     @Test
     public void testUpdate(){
-        long imageId = 456789012345L;
+        int imageId = 12863254;
         String title = "Image 3";
         String description = "Image 3 Description";
         int seller = 12345678;
@@ -123,7 +123,7 @@ public class ImageDBTest {
     }
     @Test
     public void testDelete(){
-        long imageId = 789012345678L;
+        int imageId = 12345678;
         String title = "Image 4";
         String description = "Image 4 Description";
         int seller = 87654321;
@@ -163,7 +163,7 @@ public class ImageDBTest {
         Image image2 = new Image();
         List<Image> images = new ArrayList<>();
 
-        long imageId = 1000000008L;
+        int imageId = 1000000008;
         String title = "Image 3";
         String description = "Image 3 Description";
         int seller = 12345678;
@@ -188,7 +188,7 @@ public class ImageDBTest {
         image1.setTags(tags);
         images.add(image1);
 
-        long imageId2 = 1000000001L;
+        int imageId2 = 100000009;
         String title2 = "Image 1";
         String description2 = "Image 1 Description";
         int seller2 = 12345678;

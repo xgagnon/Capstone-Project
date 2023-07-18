@@ -1,14 +1,12 @@
 package dbaccess;
 
 import com.mongodb.MongoException;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
+import models.Counter;
 import models.Image;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecProvider;
@@ -16,6 +14,7 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
+import services.MongoService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,14 +64,20 @@ public class ImageDB {
     }
 
     public void insert(Image image) {
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
+
+        CounterDB counterDB = CounterDB.getInstance();
+        Counter counter = counterDB.find("imageId");
+        counter.incrementSeq();
+        counterDB.update(counter);
+
+        try (MongoClient mongoClient = new MongoService().getClient()) {
 
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
             try {
                 collection.insertOne(new Document()
                         .append("_id", new ObjectId())
-                        .append(imageIdField, image.getImageId())
+                        .append(imageIdField, counter.getSeq())
                         .append(titleField, image.getTitle())
                         .append(descriptionField, image.getDescription())
                         .append(sellerField, image.getSeller())
@@ -91,7 +96,7 @@ public class ImageDB {
     }
 
     public void insertMany(List<Image> images) {
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
+        try (MongoClient mongoClient = new MongoService().getClient()) {
 
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
@@ -126,7 +131,7 @@ public class ImageDB {
 
         Image image;
 
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
+        try (MongoClient mongoClient = new MongoService().getClient()) {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);
             MongoCollection<Image> collection = database.getCollection(COLLECTION_NAME, Image.class);
             image = collection.find(Filters.eq(imageIdField, imageId)).projection(Projections.excludeId()).first();
@@ -136,7 +141,8 @@ public class ImageDB {
     }
 
     public void update(Image image) {
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
+
+        try (MongoClient mongoClient = new MongoService().getClient()) {
 
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
@@ -165,7 +171,7 @@ public class ImageDB {
     }
 
     public void delete(Image image) {
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
+        try (MongoClient mongoClient = new MongoService().getClient()) {
 
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
@@ -186,7 +192,7 @@ public class ImageDB {
 
         Image image;
 
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
+        try (MongoClient mongoClient = new MongoService().getClient()) {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);
             MongoCollection<Image> collection = database.getCollection(COLLECTION_NAME, Image.class);
             image = collection.find(Filters.eq(tagsField, tag)).projection(Projections.excludeId()).first();
@@ -194,6 +200,17 @@ public class ImageDB {
         return image;
     }
 
+    public List<Document> findAll() {
 
+        List<Document> allImages = new ArrayList<>();
 
+        try (MongoClient mongoClient = new MongoService().getClient()) {
+            MongoDatabase database = mongoClient.getDatabase(DB_NAME);
+            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
+            FindIterable<Document> iterAll = collection.find();
+            iterAll.iterator().forEachRemaining(allImages::add);
+        }
+
+        return allImages;
+    }
 }

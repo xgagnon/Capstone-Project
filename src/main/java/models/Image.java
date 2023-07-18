@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Image {
 
-    private long imageId;
+    private int imageId;
 
     private String title;
 
@@ -27,9 +27,9 @@ public class Image {
 
     private ArrayList<Tags> tags = new ArrayList<>();
 
-    public long getImageId(){return imageId;}
+    public int getImageId(){return imageId;}
 
-    public void setImageId(long imageId){this.imageId=imageId;}
+    public void setImageId(int imageId){this.imageId=imageId;}
 
     public String getTitle() {return title;}
 
