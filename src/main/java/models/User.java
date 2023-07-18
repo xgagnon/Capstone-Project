@@ -15,9 +15,6 @@ public class User {
     private long phone;
     private String address;
     private Role role;
-
-
-
     private String status;
     private List<Long> cart = new ArrayList<>();
     private List<Long> likes = new ArrayList<>();

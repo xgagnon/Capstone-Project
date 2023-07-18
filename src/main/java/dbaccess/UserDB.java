@@ -16,6 +16,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
+import enums.Role;
 import models.Counter;
 import models.User;
 import org.bson.Document;
@@ -135,21 +136,51 @@ public class UserDB {
 
     public void update(User user) {
         //try (MongoClient mongoClient = MongoClients.create(URI)) {
+        User oldUser = find(user.getUid());
+
+        String newEmail = user.getEmail();
+        if (newEmail == null) {
+            newEmail = oldUser.getEmail();
+        }
+        String newFirstName = user.getFirstName();
+        if(newFirstName == null) {
+            newFirstName = oldUser.getFirstName();
+        }
+        String newLastName = user.getLastName();
+        if (newLastName == null) {
+            newLastName = oldUser.getLastName();
+        }
+        long newPhone = user.getPhone();
+        if (newPhone == 0) {
+            newPhone = oldUser.getPhone();
+        }
+        String newAddress = user.getAddress();
+        if (newAddress == null) {
+            newAddress = oldUser.getAddress();
+        }
+        Role newRole = user.getRole();
+        if (newRole == null) {
+            newRole = oldUser.getRole();
+        }
+        String newStatus = user.getStatus();
+        if (newStatus == null) {
+            newStatus = oldUser.getStatus();
+        }
+
         try (MongoClient mongoClient = new MongoService().getClient()) {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 
-            Document query = new Document().append(userIdField,  user.getUserId());
+            Document query = new Document().append(uidField,  user.getUid());
 
             Bson updates = Updates.combine(
-                    //Updates.set(uidField, user.getUid()),
-                    Updates.set(emailField, user.getEmail()),
-                    Updates.set(firstNameField, user.getFirstName()),
-                    Updates.set(lastNameField, user.getLastName()),
-                    Updates.set(phoneField, user.getPhone()),
-                    Updates.set(addressField, user.getAddress()),
-                    Updates.set(roleField, user.getRole()),
-                    Updates.set(statusField, user.getStatus()),
+                    Updates.set(emailField, newEmail),
+                    Updates.set(firstNameField, newFirstName),
+                    Updates.set(lastNameField, newLastName),
+                    Updates.set(phoneField, newPhone),
+                    Updates.set(addressField, newAddress),
+                    Updates.set(roleField, newRole),
+                    Updates.set(statusField, newStatus),
                     Updates.set(cartField, user.getCart()),
                     Updates.set(likesField, user.getLikes()),
                     Updates.set(transactionsField, user.getTransactions())
