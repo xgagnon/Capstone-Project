@@ -1,2 +1,3 @@
 out/production/resources/key.json
 src/main/resources/key.json
+.idea/gradle.xml
