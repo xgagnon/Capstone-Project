@@ -6,6 +6,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
+import models.Counter;
 import models.Transaction;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecProvider;
@@ -16,6 +17,7 @@ import org.bson.types.ObjectId;
 import services.MongoService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
@@ -48,6 +50,12 @@ public class TransactionDB {
     }
 
     public void insert(Transaction transaction) {
+
+        CounterDB counterDB = CounterDB.getInstance();
+        Counter counter = counterDB.find("transactionId");
+        counter.incrementSeq();
+        counterDB.update(counter);
+
         try (MongoClient mongoClient = new MongoService().getClient()) {
 
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
@@ -56,8 +64,8 @@ public class TransactionDB {
             try {
                 collection.insertOne(new Document()
                         .append("_id", new ObjectId())
-                        .append(transactionIdField, transaction.getTransactionId())
-                        .append(dateField, transaction.getDate())
+                        .append(transactionIdField, counter.getSeq())
+                        .append(dateField, new Date())
                         .append(priceField, transaction.getPrice())
                         .append(buyerEmailField, transaction.getBuyerEmail())
                         .append(statusField, transaction.getStatus())

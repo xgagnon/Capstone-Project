@@ -75,13 +75,6 @@ public class UserDB {
         counter.incrementSeq();
         counterDB.update(counter);
 
-
-        /*String uid = String.valueOf(counter);
-        String customToken = FirebaseAuth.getInstance().createCustomToken(uid);
-        String shortToken = customToken.substring(customToken.length()-29);*/
-
-        //try (MongoClient mongoClient = MongoClients.create(URI)) {
-
         try (MongoClient mongoClient = new MongoService().getClient()) {
 
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);

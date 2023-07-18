@@ -95,36 +95,6 @@ public class ImageDB {
         }
     }
 
-    public void insertMany(List<Image> images) {
-        try (MongoClient mongoClient = new MongoService().getClient()) {
-
-            MongoDatabase database = mongoClient.getDatabase(DB_NAME);
-            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
-
-            List<Document> imageList = new ArrayList<>();
-            for (Image image : images) {
-                imageList.add(new Document()
-                        .append("_id", new ObjectId())
-                        .append(imageIdField, image.getImageId())
-                        .append(titleField, image.getTitle())
-                        .append(descriptionField, image.getDescription())
-                        .append(sellerField, image.getSeller())
-                        .append(likesField, image.getLikes())
-                        .append(viewsField, image.getViews())
-                        .append(priceField, image.getPrice())
-                        .append(statusField, image.getStatus())
-                        .append(imageLocationField, image.getImageLocation())
-                        .append(tagsField,image.getTags())
-                );
-            }
-            try {
-                collection.insertMany(imageList);
-            } catch (MongoException me) {
-                System.err.println("Unable to insert due to an error: " + me);
-            }
-        }
-    }
-
     public Image find(long imageId) {
         CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
         CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));

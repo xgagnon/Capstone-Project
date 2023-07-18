@@ -13,9 +13,6 @@ public class ImageService {
         imageDB.insert(image);
         return image;
     }
-    public void insertMany(List<Image> images) {
-        imageDB.insertMany(images);
-    }
 
     public Image find(int imageId){
         return imageDB.find(imageId);
