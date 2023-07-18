@@ -3,15 +3,11 @@ package dbaccess;
 import com.google.firebase.auth.FirebaseAuthException;
 import enums.Role;
 import models.User;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 

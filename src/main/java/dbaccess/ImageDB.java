@@ -200,17 +200,20 @@ public class ImageDB {
         return image;
     }
 
-    public List<Document> findAll() {
+    public List<Image> findAll() {
 
-        List<Document> allImages = new ArrayList<>();
+        CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
+        CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
+
+        List<Image> images = new ArrayList<>();
 
         try (MongoClient mongoClient = new MongoService().getClient()) {
-            MongoDatabase database = mongoClient.getDatabase(DB_NAME);
-            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
-            FindIterable<Document> iterAll = collection.find();
-            iterAll.iterator().forEachRemaining(allImages::add);
+            MongoDatabase database = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);
+            MongoCollection<Image> collection = database.getCollection(COLLECTION_NAME, Image.class);
+            FindIterable<Image> iterAll = collection.find().projection(Projections.excludeId());
+            iterAll.iterator().forEachRemaining(images::add);
         }
 
-        return allImages;
+        return images;
     }
 }

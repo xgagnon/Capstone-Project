@@ -39,7 +39,7 @@ public class ImageController {
     }
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public ResponseEntity<List<Document>> findAll() {
-        return new ResponseEntity<List<Document>>(service.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<Image>> findAll() {
+        return new ResponseEntity<List<Image>>(service.findAll(), HttpStatus.OK);
     }
  }

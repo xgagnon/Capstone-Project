@@ -19,25 +19,12 @@ public class TransactionService {
         }
         transactionDb.insert(transaction);
     }
-    public void insertMany(List<Transaction> transactions) throws TransactionException {
-
-        for(Transaction transaction : transactions) {
-            if(TransactionDB.find(transaction.getTransactionId()) != null) {
-                throw new TransactionException("A transaction with the ID \" +transaction.getTransactionId()+ \" already exists");
-            }
-        }
-        TransactionDB.insertMany(transactions);
-    }
 
     public Transaction find(int transactionId) {
         return TransactionDB.find(transactionId);
     }
 
-    public void update(Transaction transaction) {
-        TransactionDB.update(transaction);
-    }
-
-    public void delete(Transaction transaction) {
-        TransactionDB.delete(transaction);
+    public List<Transaction> findAll(String email) {
+        return TransactionDB.findAll(email);
     }
 }

@@ -31,7 +31,7 @@ public class ImageService {
         return image;
     }
 
-    public List<Document> findAll() {
+    public List<Image> findAll() {
         return imageDB.findAll();
     }
 

@@ -1,8 +1,8 @@
 package validation;
 
 
-import javax.validation.constraints.*;
-import java.util.List;
+import dbaccess.TransactionDB;
+import org.junit.Test;
 
 public class transactionValidationTest {
 
@@ -10,29 +10,29 @@ public class transactionValidationTest {
 
     @Test
     public void testTransactionId(){
-        Long expectedLong = "0000000001L";
+        Long expectedLong = 0000000001L;
     }
     @Test
     public void testDate(){
 
     }
 
-    @test
+    @Test
     public void testPrice(){
 
     }
 
-    @test
+    @Test
     public void testPurchasedImages(){
 
     }
 
-    @test
+    @Test
     public void testBuyerEmail(){
 
     }
 
-    @test
+    @Test
     public void testStatus(){
 
     }

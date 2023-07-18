@@ -15,17 +15,7 @@ import static org.junit.Assert.*;
 
 public class ImageDBTest {
 
-    ImageDB imageDb;
-
-    @Before
-    public void setUp() {
-        imageDb = ImageDB.getInstance();
-    }
-
-    @After
-    public void tearDown(){
-
-    }
+    ImageDB imageDb = ImageDB.getInstance();
     @Test
     public void testFind(){
         long imageId = 1000000008L;
@@ -220,6 +210,19 @@ public class ImageDBTest {
         assertNotNull(foundImage1);
 
 
+    }
+
+    @Test
+    public void testFindAll(){
+        //Change expected size to match current Atlas collection count for images
+        //Run this test alone
+        int expectedSize = 31;
+
+        List<Image> images = imageDb.findAll();
+
+        assertTrue(images.size() > 0);
+        assertTrue(images.size() > 1);
+        assertEquals(expectedSize,images.size());
     }
 
 }

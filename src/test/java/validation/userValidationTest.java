@@ -1,8 +1,8 @@
 package validation;
 
 
-import javax.validation.constraints.*;
-import java.util.List;
+import dbaccess.UserDB;
+import org.junit.Test;
 
 public class userValidationTest {
 
@@ -10,7 +10,7 @@ public class userValidationTest {
 
     @Test
     public void testUserId(){
-        Int expectedInt = 0000001;
+        int expectedInt = 0000001;
     }
 
     @Test

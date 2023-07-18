@@ -1,15 +1,12 @@
 package dbaccess;
 
 import models.Transaction;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.lang.Long;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class TransactionDBTest {
 
@@ -49,7 +46,28 @@ public class TransactionDBTest {
         assertEquals(transaction.getStatus(),foundTransaction.getStatus());
     }
 
+    @Test
+    public void testFindTransaction() {
+        long id = 1000000002L;
 
+        Transaction transaction = TransactionDB.find(id);
+
+        assertNotNull(transaction);
+    }
+
+    @Test
+    public void testFindAllTransactions() {
+        String buyerEmail = "buyer1@example.com";
+        int historyLength = 3;
+
+        List<Transaction> transactions = new ArrayList<>();
+
+        transactions = TransactionDB.findAll(buyerEmail);
+
+        assertTrue(transactions.size() > 0);
+        assertTrue(transactions.size() > 1);
+        assertEquals(historyLength,transactions.size());
+    }
 
 
 
