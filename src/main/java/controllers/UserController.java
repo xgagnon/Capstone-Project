@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     private UserService service = new UserService();
@@ -22,12 +22,12 @@ public class UserController {
         return new ResponseEntity<User>(service.find(uid), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<User> insert(@RequestBody User user) throws UserException, FirebaseAuthException, IOException {
         return ResponseEntity.ok(this.service.insert(user));
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(value = "/profile/", method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody User user) {
         return ResponseEntity.ok(service.update(user));
     }

@@ -11,29 +11,21 @@ import java.io.IOException;
 
 public class FireBaseService {
 
-
-    FirebaseDatabase db;
-
-    public FireBaseService() throws IOException {
+    public static void FireBaseService() throws IOException {
         /*File file = new File(
                 getClass().getClassLoader().getResource("key.json").getFile()
         );*/
 
         //FileInputStream fis = new FileInputStream(file);
-        FileInputStream fis = new FileInputStream("C:\\Users\\vitor\\IdeaProjects\\Capstone-Project\\res\\key.json");
 
-        FirebaseOptions options = new FirebaseOptions.Builder()
-                .setCredentials(GoogleCredentials.fromStream(fis))
-                .setDatabaseUrl("https://restaurants-3bb3e.firebaseio.com")
-                .build();
+            FileInputStream fis = new FileInputStream("C:\\Users\\vitor\\IdeaProjects\\Capstone-Project\\res\\key.json");
 
-        FirebaseApp.initializeApp(options);
+            FirebaseOptions options = new FirebaseOptions.Builder()
+                    .setCredentials(GoogleCredentials.fromStream(fis))
+                    .setDatabaseUrl("https://restaurants-3bb3e.firebaseio.com")
+                    .build();
 
-        db = FirebaseDatabase.getInstance();
+            FirebaseApp.initializeApp(options);
+
     }
-
-    public FirebaseDatabase getDb() {
-        return db;
-    }
-
 }

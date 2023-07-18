@@ -15,6 +15,10 @@ public class User {
     private long phone;
     private String address;
     private Role role;
+
+
+
+    private String status;
     private List<Long> cart = new ArrayList<>();
     private List<Long> likes = new ArrayList<>();
     private List<Long> transactions = new ArrayList<>();
@@ -89,6 +93,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<Long> getCart() {

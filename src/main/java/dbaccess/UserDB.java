@@ -49,6 +49,7 @@ public class UserDB {
     public static final String phoneField = "phone";
     public static final String addressField = "address";
     public static final String passwordField = "password";
+    public static final String statusField = "status";
     public static final String roleField = "role";
     public static final String cartField = "cart";
     public static final String likesField = "likes";
@@ -73,14 +74,12 @@ public class UserDB {
         counter.incrementSeq();
         counterDB.update(counter);
 
-        FirebaseDatabase firebase = new FireBaseService().getDb();
 
         /*String uid = String.valueOf(counter);
         String customToken = FirebaseAuth.getInstance().createCustomToken(uid);
         String shortToken = customToken.substring(customToken.length()-29);*/
 
         //try (MongoClient mongoClient = MongoClients.create(URI)) {
-
 
         try (MongoClient mongoClient = new MongoService().getClient()) {
 
@@ -106,6 +105,7 @@ public class UserDB {
                         .append(phoneField, user.getPhone())
                         .append(addressField, user.getAddress())
                         .append(roleField, user.getRole())
+                        .append(statusField, user.getStatus())
                         .append(cartField, user.getCart())
                         .append(likesField, user.getLikes())
                         .append(transactionsField, user.getTransactions())
@@ -117,7 +117,7 @@ public class UserDB {
         }
     }
     
-    public User find(String email){
+    public User find(String uid){
         CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();
         CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
@@ -127,7 +127,7 @@ public class UserDB {
         try (MongoClient mongoClient = new MongoService().getClient()) {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);
             MongoCollection<User> collection = database.getCollection(COLLECTION_NAME, User.class);
-            user = collection.find(Filters.eq(emailField, email)).projection(Projections.excludeId()).first();
+            user = collection.find(Filters.eq(uidField, uid)).projection(Projections.excludeId()).first();
         }
 
         return user;
@@ -142,13 +142,14 @@ public class UserDB {
             Document query = new Document().append(userIdField,  user.getUserId());
 
             Bson updates = Updates.combine(
-                    Updates.set(uidField, user.getUid()),
+                    //Updates.set(uidField, user.getUid()),
                     Updates.set(emailField, user.getEmail()),
                     Updates.set(firstNameField, user.getFirstName()),
                     Updates.set(lastNameField, user.getLastName()),
                     Updates.set(phoneField, user.getPhone()),
                     Updates.set(addressField, user.getAddress()),
                     Updates.set(roleField, user.getRole()),
+                    Updates.set(statusField, user.getStatus()),
                     Updates.set(cartField, user.getCart()),
                     Updates.set(likesField, user.getLikes()),
                     Updates.set(transactionsField, user.getTransactions())
