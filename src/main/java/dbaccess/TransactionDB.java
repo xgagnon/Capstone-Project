@@ -26,7 +26,6 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 public class TransactionDB {
 
-    public static final String URI = "mongodb://localhost:27017";
     public static final String DB_NAME = "image_store_db";
     public static final String COLLECTION_NAME = "transactions";
 

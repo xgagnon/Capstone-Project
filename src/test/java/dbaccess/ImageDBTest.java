@@ -2,9 +2,6 @@ package dbaccess;
 
 import enums.Tags;
 import models.Image;
-import models.User;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 
