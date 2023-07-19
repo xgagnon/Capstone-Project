@@ -1,0 +1,241 @@
+Index: src/main/java/controllers/UserController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package controllers;\r\n\r\npublic class UserController {\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/controllers/UserController.java b/src/main/java/controllers/UserController.java
+--- a/src/main/java/controllers/UserController.java	(revision 2524ab633d49c54248d5052cd93fe0eb6daa8a03)
++++ b/src/main/java/controllers/UserController.java	(date 1687969269045)
+@@ -1,4 +1,28 @@
+ package controllers;
+ 
++import exceptions.UserException;
++import models.User;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.http.HttpStatus;
++import org.springframework.http.ResponseEntity;
++import org.springframework.web.bind.annotation.*;
++import services.UserService;
++
++@RestController
++@RequestMapping("/api/user")
++@CrossOrigin(origins = "http://localhost:3000")
+ public class UserController {
++    @Autowired
++    private UserService userService;
++
++    @GetMapping("/{email}")
++    public ResponseEntity<User> findUser(@PathVariable String email) {
++        return new ResponseEntity<User>(userService.find(email), HttpStatus.OK);
++    }
++
++    @PostMapping
++    public ResponseEntity<User> insert(@RequestBody User user) throws UserException {
++        this.userService.insert(user);
++        return ResponseEntity.ok(user);
++    }
+ }
+Index: .gradle/buildOutputCleanup/cache.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Tue Jun 06 10:46:11 MDT 2023\r\ngradle.version=7.5.1\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/.gradle/buildOutputCleanup/cache.properties b/.gradle/buildOutputCleanup/cache.properties
+--- a/.gradle/buildOutputCleanup/cache.properties	(revision 2524ab633d49c54248d5052cd93fe0eb6daa8a03)
++++ b/.gradle/buildOutputCleanup/cache.properties	(date 1687966487638)
+@@ -1,2 +1,2 @@
+-#Tue Jun 06 10:46:11 MDT 2023
++#Wed Jun 28 09:34:47 MDT 2023
+ gradle.version=7.5.1
+Index: src/main/java/services/UserService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package services;\r\n\r\nimport dbaccess.UserDB;\r\nimport exceptions.UserException;\r\nimport models.User;\r\n\r\nimport java.util.List;\r\n\r\npublic class UserService {\r\n    UserDB userDb = UserDB.getInstance();\r\n\r\n    public void insert(User user) throws UserException {\r\n\r\n        if(userDb.find(user.getEmail()) != null) {\r\n            throw new UserException(\"A user with the email \" +user.getEmail()+ \" already exists\");\r\n        }\r\n        userDb.insert(user);\r\n    }\r\n\r\n    public void insertMany(List<User> users) throws UserException {\r\n\r\n        for(User user : users) {\r\n            if(userDb.find(user.getEmail()) != null) {\r\n                throw new UserException(\"A user with the email \" +user.getEmail()+ \" already exists\");\r\n            }\r\n        }\r\n        userDb.insertMany(users);\r\n    }\r\n\r\n    public User find(String email) {\r\n        return userDb.find(email);\r\n    }\r\n\r\n    public void update(User user) {\r\n        userDb.update(user);\r\n    }\r\n\r\n    public void delete(User user) {\r\n        userDb.delete(user);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/services/UserService.java b/src/main/java/services/UserService.java
+--- a/src/main/java/services/UserService.java	(revision 2524ab633d49c54248d5052cd93fe0eb6daa8a03)
++++ b/src/main/java/services/UserService.java	(date 1687968186466)
+@@ -3,9 +3,11 @@
+ import dbaccess.UserDB;
+ import exceptions.UserException;
+ import models.User;
++import org.springframework.stereotype.Service;
+ 
+ import java.util.List;
+ 
++@Service
+ public class UserService {
+     UserDB userDb = UserDB.getInstance();
+ 
+Index: src/main/java/services/TransactionService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package services;\r\n\r\n\r\nimport dbaccess.TransactionDB;\r\nimport exceptions.TransactionException;\r\nimport models.Transaction;\r\n\r\n\r\nimport java.util.List;\r\n\r\npublic class TransactionService {\r\n\r\n    TransactionDB transactionDb = TransactionDB.getInstance();\r\n\r\n    public void insert(Transaction transaction) throws TransactionException {\r\n\r\n        if(transactionDb.find(transaction.getTransactionId()) != null) {\r\n            throw new TransactionException(\"A transaction with the ID \" +transaction.getTransactionId()+ \" already exists\");\r\n        }\r\n        transactionDb.insert(transaction);\r\n    }\r\n    public void insertMany(List<Transaction> transactions) throws TransactionException {\r\n\r\n        for(Transaction transaction : transactions) {\r\n            if(TransactionDB.find(transaction.getTransactionId()) != null) {\r\n                throw new TransactionException(\"A transaction with the ID \\\" +transaction.getTransactionId()+ \\\" already exists\");\r\n            }\r\n        }\r\n        TransactionDB.insertMany(transactions);\r\n    }\r\n\r\n    public Transaction find(int transactionId) {\r\n        return TransactionDB.find(transactionId);\r\n    }\r\n\r\n    public void update(Transaction transaction) {\r\n        TransactionDB.update(transaction);\r\n    }\r\n\r\n    public void delete(Transaction transaction) {\r\n        TransactionDB.delete(transaction);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/services/TransactionService.java b/src/main/java/services/TransactionService.java
+--- a/src/main/java/services/TransactionService.java	(revision 2524ab633d49c54248d5052cd93fe0eb6daa8a03)
++++ b/src/main/java/services/TransactionService.java	(date 1687968213656)
+@@ -4,10 +4,12 @@
+ import dbaccess.TransactionDB;
+ import exceptions.TransactionException;
+ import models.Transaction;
++import org.springframework.stereotype.Service;
+ 
+ 
+ import java.util.List;
+ 
++@Service
+ public class TransactionService {
+ 
+     TransactionDB transactionDb = TransactionDB.getInstance();
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n    <mapping directory=\"$PROJECT_DIR$\" vcs=\"Git\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision 2524ab633d49c54248d5052cd93fe0eb6daa8a03)
++++ b/.idea/vcs.xml	(date 1687966488853)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++    <mapping directory="" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: src/main/java/dbaccess/ImageDB.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package dbaccess;\r\n\r\nimport com.mongodb.MongoException;\r\nimport com.mongodb.client.MongoClient;\r\nimport com.mongodb.client.MongoClients;\r\nimport com.mongodb.client.MongoCollection;\r\nimport com.mongodb.client.MongoDatabase;\r\nimport com.mongodb.client.model.Filters;\r\nimport com.mongodb.client.model.Projections;\r\nimport com.mongodb.client.model.UpdateOptions;\r\nimport com.mongodb.client.model.Updates;\r\nimport models.Image;\r\nimport org.bson.Document;\r\nimport org.bson.codecs.configuration.CodecProvider;\r\nimport org.bson.codecs.configuration.CodecRegistry;\r\nimport org.bson.codecs.pojo.PojoCodecProvider;\r\nimport org.bson.conversions.Bson;\r\nimport org.bson.types.ObjectId;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\nimport static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;\r\nimport static org.bson.codecs.configuration.CodecRegistries.fromProviders;\r\nimport static org.bson.codecs.configuration.CodecRegistries.fromRegistries;\r\n\r\npublic class ImageDB {\r\n\r\n    public static final String URI = \"mongodb://localhost:27017\";\r\n    public static final String DB_NAME = \"image_store_db\";\r\n    public static final String COLLECTION_NAME = \"images\";\r\n\r\n    public static final String imageIdField = \"imageId\";\r\n    public static final String titleField = \"title\";\r\n    public static final String descriptionField  = \"description\";\r\n    public static final String sellerField = \"seller\";\r\n    public static final String likesField =  \"likes\";\r\n    public static final String viewsField =  \"views\";\r\n    public  static final String priceField = \"price\";\r\n    public static final String statusField = \"status\";\r\n    public static final String imageLocationField = \"imageLocation\";\r\n    public static final String tagsField = \"tags\";\r\n\r\n    private static ImageDB instance;\r\n\r\n    private ImageDB() {\r\n    }\r\n\r\n    public static synchronized ImageDB getInstance() {\r\n        if (instance == null) {\r\n            instance = new ImageDB();\r\n        }\r\n        return instance;\r\n    }\r\n\r\n    public void insert(Image image) {\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME);\r\n            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);\r\n\r\n            try {\r\n                collection.insertOne(new Document()\r\n                        .append(\"_id\", new ObjectId())\r\n                        .append(imageIdField, image.getImageId())\r\n                        .append(titleField, image.getTitle())\r\n                        .append(descriptionField, image.getDescription())\r\n                        .append(sellerField, image.getSeller())\r\n                        .append(likesField, image.getLikes())\r\n                        .append(viewsField, image.getViews())\r\n                        .append(priceField, image.getPrice())\r\n                        .append(statusField, image.getStatus())\r\n                        .append(imageLocationField, image.getImageLocation())\r\n                        .append(tagsField,image.getTags())\r\n                );\r\n            } catch (MongoException me) {\r\n                System.err.println(\"Unable to insert due to an error: \" + me);\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n    public void insertMany(List<Image> images) {\r\n\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME);\r\n            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);\r\n\r\n            List<Document> imageList = new ArrayList<>();\r\n\r\n            for(Image image : images) {\r\n                imageList.add(new Document()\r\n                        .append(\"_id\", new ObjectId())\r\n                        .append(imageIdField, image.getImageId())\r\n                        .append(titleField, image.getTitle())\r\n                        .append(descriptionField, image.getDescription())\r\n                        .append(sellerField, image.getSeller())\r\n                        .append(likesField, image.getLikes())\r\n                        .append(viewsField, image.getViews())\r\n                        .append(priceField, image.getPrice())\r\n                        .append(statusField, image.getStatus())\r\n                        .append(imageLocationField, image.getImageLocation())\r\n                        .append(tagsField,image.getTags())\r\n                );\r\n            }\r\n\r\n            try {\r\n                collection.insertMany(imageList);\r\n            } catch (MongoException me) {\r\n                System.err.println(\"Unable to insert due to an error: \" + me);\r\n            }\r\n        }\r\n    }\r\n\r\n    public Image find(int imageId){\r\n        CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();\r\n        CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));\r\n\r\n        Image image;\r\n\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);\r\n            MongoCollection<Image> collection = database.getCollection(COLLECTION_NAME, Image.class);\r\n            image = collection.find(Filters.eq(imageIdField, imageId)).projection(Projections.excludeId()).first();\r\n        }\r\n\r\n        return image;\r\n    }\r\n\r\n    public void update(Image image) {\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME);\r\n            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);\r\n\r\n            Document query = new Document().append(imageIdField,  image.getImageId());\r\n\r\n            Bson updates = Updates.combine(\r\n                    Updates.set(imageIdField, image.getImageId()),\r\n                    Updates.set(titleField, image.getTitle()),\r\n                    Updates.set(descriptionField, image.getDescription()),\r\n                    Updates.set(sellerField, image.getSeller()),\r\n                    Updates.set(likesField, image.getLikes()),\r\n                    Updates.set(viewsField, image.getViews()),\r\n                    Updates.set(priceField, image.getPrice()),\r\n                    Updates.set(statusField, image.getStatus()),\r\n                    Updates.set(imageLocationField, image.getImageLocation()),\r\n                    Updates.set(tagsField,image.getTags())\r\n            );\r\n\r\n            UpdateOptions options = new UpdateOptions().upsert(true);\r\n\r\n            try {\r\n                collection.updateOne(query, updates, options);\r\n            } catch (MongoException me) {\r\n                System.err.println(\"Unable to update due to an error: \" + me);\r\n            }\r\n        }\r\n    }\r\n\r\n    public void delete(Image image) {\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME);\r\n            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);\r\n\r\n            Bson query = Filters.eq(imageIdField, image.getImageId());\r\n\r\n            try {\r\n                collection.deleteOne(query);\r\n            } catch (MongoException me) {\r\n                System.err.println(\"Unable to delete due to an error: \" + me);\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/dbaccess/ImageDB.java b/src/main/java/dbaccess/ImageDB.java
+--- a/src/main/java/dbaccess/ImageDB.java	(revision 2524ab633d49c54248d5052cd93fe0eb6daa8a03)
++++ b/src/main/java/dbaccess/ImageDB.java	(date 1687968480412)
+@@ -16,6 +16,7 @@
+ import org.bson.codecs.pojo.PojoCodecProvider;
+ import org.bson.conversions.Bson;
+ import org.bson.types.ObjectId;
++import org.springframework.stereotype.Repository;
+ 
+ import java.util.ArrayList;
+ import java.util.List;
+@@ -24,6 +25,7 @@
+ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+ 
++@Repository
+ public class ImageDB {
+ 
+     public static final String URI = "mongodb://localhost:27017";
+Index: src/main/java/services/ImageService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package services;\r\n\r\n\r\nimport dbaccess.ImageDB;\r\nimport exceptions.ImageException;\r\nimport models.Image;\r\n\r\nimport java.util.List;\r\n\r\npublic class ImageService {\r\n    ImageDB imageDb = ImageDB.getInstance();\r\n\r\n    public void insert(Image image) throws ImageException {\r\n\r\n        if(imageDb.find(image.getImageId()) != null) {\r\n            throw new ImageException(\"An image with the ID \" +image.getImageId()+ \" already exists\");\r\n        }\r\n        imageDb.insert(image);\r\n    }\r\n\r\n    public void insertMany(List<Image> images) throws ImageException {\r\n\r\n        for(Image image: images) {\r\n            if(imageDb.find(image.getImageId()) != null) {\r\n                throw new ImageException(\"An image with the ID \" +image.getImageId()+ \" already exists\");\r\n            }\r\n        }\r\n        imageDb.insertMany(images);\r\n    }\r\n\r\n    public Image find(int imageId) {\r\n        return imageDb.find(imageId);\r\n    }\r\n\r\n    public void update(Image image) {\r\n        imageDb.update(image);\r\n    }\r\n\r\n    public void delete(Image image) { imageDb.delete(image);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/services/ImageService.java b/src/main/java/services/ImageService.java
+--- a/src/main/java/services/ImageService.java	(revision 2524ab633d49c54248d5052cd93fe0eb6daa8a03)
++++ b/src/main/java/services/ImageService.java	(date 1687968213667)
+@@ -4,9 +4,11 @@
+ import dbaccess.ImageDB;
+ import exceptions.ImageException;
+ import models.Image;
++import org.springframework.stereotype.Service;
+ 
+ import java.util.List;
+ 
++@Service
+ public class ImageService {
+     ImageDB imageDb = ImageDB.getInstance();
+ 
+Index: src/main/java/dbaccess/TransactionDB.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package dbaccess;\r\n\r\nimport com.mongodb.MongoException;\r\nimport com.mongodb.client.MongoClient;\r\nimport com.mongodb.client.MongoClients;\r\nimport com.mongodb.client.MongoCollection;\r\nimport com.mongodb.client.MongoDatabase;\r\nimport com.mongodb.client.model.Filters;\r\nimport com.mongodb.client.model.Projections;\r\nimport com.mongodb.client.model.UpdateOptions;\r\nimport com.mongodb.client.model.Updates;\r\nimport models.Transaction;\r\nimport org.bson.Document;\r\nimport org.bson.codecs.configuration.CodecProvider;\r\nimport org.bson.codecs.configuration.CodecRegistry;\r\nimport org.bson.codecs.pojo.PojoCodecProvider;\r\nimport org.bson.conversions.Bson;\r\nimport org.bson.types.ObjectId;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\nimport static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;\r\nimport static org.bson.codecs.configuration.CodecRegistries.fromProviders;\r\nimport static org.bson.codecs.configuration.CodecRegistries.fromRegistries;\r\n\r\npublic class TransactionDB {\r\n\r\n    public static final String URI = \"mongodb://localhost:27017\";\r\n    public static final String DB_NAME = \"image_store_db\";\r\n    public static final String COLLECTION_NAME = \"transactions\";\r\n\r\n    public static final String transactionIdField = \"transactionId\";\r\n    public static final String dateField = \"date\";\r\n    public static final String priceField = \"price\";\r\n    public static final String buyerEmailField = \"buyerEmail\";\r\n    public static final String statusField = \"status\";\r\n    public static final String purchasedImagesField = \"purchasedImages\";\r\n\r\n    private static TransactionDB instance;\r\n\r\n    private TransactionDB() {\r\n    }\r\n\r\n    public static synchronized TransactionDB getInstance() {\r\n        if (instance == null) {\r\n            instance = new TransactionDB();\r\n        }\r\n        return instance;\r\n    }\r\n\r\n    public void insert(Transaction transaction) {\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME);\r\n            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);\r\n\r\n            try {\r\n                collection.insertOne(new Document()\r\n                        .append(\"_id\", new ObjectId())\r\n                        .append(transactionIdField, transaction.getTransactionId())\r\n                        .append(dateField, transaction.getDate())\r\n                        .append(priceField, transaction.getPrice())\r\n                        .append(buyerEmailField, transaction.getBuyerEmail())\r\n                        .append(statusField, transaction.getStatus())\r\n                        .append(purchasedImagesField, transaction.getPurcahsedImages())\r\n                );\r\n            } catch (MongoException me) {\r\n                System.err.println(\"Unable to insert due to an error: \" + me);\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n    public static void insertMany(List<Transaction> transactions) {\r\n\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME);\r\n            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);\r\n\r\n            List<Document> transactionsList = new ArrayList<>();\r\n\r\n            for(Transaction transaction : transactions) {\r\n                transactionsList.add(new Document()\r\n                        .append(\"_id\", new ObjectId())\r\n                        .append(transactionIdField, transaction.getTransactionId())\r\n                        .append(dateField, transaction.getDate())\r\n                        .append(priceField, transaction.getPrice())\r\n                        .append(buyerEmailField, transaction.getBuyerEmail())\r\n                        .append(statusField, transaction.getStatus())\r\n                        .append(purchasedImagesField, transaction.getPurcahsedImages())\r\n                );\r\n            }\r\n\r\n            try {\r\n                collection.insertMany(transactionsList);\r\n            } catch (MongoException me) {\r\n                System.err.println(\"Unable to insert due to an error: \" + me);\r\n            }\r\n        }\r\n    }\r\n\r\n    public static Transaction find(long transactionID){\r\n        CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();\r\n        CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));\r\n\r\n        Transaction transaction;\r\n\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);\r\n            MongoCollection<Transaction> collection = database.getCollection(COLLECTION_NAME, Transaction.class);\r\n            transaction = collection.find(Filters.eq(buyerEmailField, transactionID)).projection(Projections.excludeId()).first();\r\n        }\r\n\r\n        return transaction;\r\n    }\r\n\r\n    public static void update(Transaction transaction) {\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME);\r\n            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);\r\n\r\n            Document query = new Document().append(transactionIdField,  transaction.getTransactionId());\r\n\r\n            Bson updates = Updates.combine(\r\n                    Updates.set(transactionIdField, transaction.getTransactionId()),\r\n                    Updates.set(dateField, transaction.getDate()),\r\n                    Updates.set(priceField, transaction.getPrice()),\r\n                    Updates.set(buyerEmailField, transaction.getBuyerEmail()),\r\n                    Updates.set(statusField, transaction.getStatus()),\r\n                    Updates.set(purchasedImagesField, transaction.getPurcahsedImages())\r\n            );\r\n\r\n            UpdateOptions options = new UpdateOptions().upsert(true);\r\n\r\n            try {\r\n                collection.updateOne(query, updates, options);\r\n            } catch (MongoException me) {\r\n                System.err.println(\"Unable to update due to an error: \" + me);\r\n            }\r\n        }\r\n    }\r\n\r\n    public static void delete(Transaction transaction) {\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME);\r\n            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);\r\n\r\n            Bson query = Filters.eq(transactionIdField, transaction.getTransactionId());\r\n\r\n            try {\r\n                collection.deleteOne(query);\r\n            } catch (MongoException me) {\r\n                System.err.println(\"Unable to delete due to an error: \" + me);\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/dbaccess/TransactionDB.java b/src/main/java/dbaccess/TransactionDB.java
+--- a/src/main/java/dbaccess/TransactionDB.java	(revision 2524ab633d49c54248d5052cd93fe0eb6daa8a03)
++++ b/src/main/java/dbaccess/TransactionDB.java	(date 1687968480429)
+@@ -16,6 +16,7 @@
+ import org.bson.codecs.pojo.PojoCodecProvider;
+ import org.bson.conversions.Bson;
+ import org.bson.types.ObjectId;
++import org.springframework.stereotype.Repository;
+ 
+ import java.util.ArrayList;
+ import java.util.List;
+@@ -24,6 +25,7 @@
+ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+ 
++@Repository
+ public class TransactionDB {
+ 
+     public static final String URI = "mongodb://localhost:27017";
+Index: src/main/java/dbaccess/UserDB.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package dbaccess;\r\n\r\nimport com.mongodb.MongoException;\r\nimport com.mongodb.client.MongoClient;\r\nimport com.mongodb.client.MongoClients;\r\nimport com.mongodb.client.MongoCollection;\r\nimport com.mongodb.client.MongoDatabase;\r\nimport com.mongodb.client.model.Filters;\r\nimport com.mongodb.client.model.Projections;\r\nimport com.mongodb.client.model.UpdateOptions;\r\nimport com.mongodb.client.model.Updates;\r\nimport models.Counter;\r\nimport models.User;\r\nimport org.bson.Document;\r\nimport org.bson.codecs.configuration.CodecProvider;\r\nimport org.bson.codecs.configuration.CodecRegistry;\r\nimport org.bson.codecs.pojo.PojoCodecProvider;\r\nimport org.bson.conversions.Bson;\r\nimport org.bson.types.ObjectId;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\nimport static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;\r\nimport static org.bson.codecs.configuration.CodecRegistries.fromProviders;\r\nimport static org.bson.codecs.configuration.CodecRegistries.fromRegistries;\r\n\r\npublic class UserDB {\r\n\r\n    public static final String URI = \"mongodb://localhost:27017\";\r\n    public static final String DB_NAME = \"image_store_db\";\r\n    public static final String COLLECTION_NAME = \"users\";\r\n\r\n    public static final String userIdField = \"userId\";\r\n    public static final String emailField = \"email\";\r\n    public static final String firstNameField = \"firstName\";\r\n    public static final String lastNameField = \"lastName\";\r\n    public static final String phoneField = \"phone\";\r\n    public static final String addressField = \"address\";\r\n    public static final String passwordField = \"password\";\r\n    public static final String roleField = \"role\";\r\n    public static final String cartField = \"cart\";\r\n    public static final String likesField = \"likes\";\r\n    public static final String transactionsField = \"transactions\";\r\n\r\n    private static UserDB instance;\r\n\r\n    private UserDB() {\r\n    }\r\n\r\n    public static synchronized UserDB getInstance() {\r\n        if(instance == null) {\r\n            instance = new UserDB();\r\n        }\r\n        return instance;\r\n    }\r\n\r\n    public void insert(User user) {\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME);\r\n            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);\r\n\r\n            CounterDB counterDB = CounterDB.getInstance();\r\n            Counter counter = counterDB.find(\"userId\");\r\n            counter.incrementSeq();\r\n            counterDB.update(counter);\r\n\r\n            try {\r\n                collection.insertOne(new Document()\r\n                        .append(\"_id\", new ObjectId())\r\n                        .append(userIdField, counter.getSeq())\r\n                        .append(emailField, user.getEmail())\r\n                        .append(firstNameField, user.getFirstName())\r\n                        .append(lastNameField, user.getLastName())\r\n                        .append(phoneField, user.getPhone())\r\n                        .append(addressField, user.getAddress())\r\n                        .append(passwordField, user.getPassword())\r\n                        .append(roleField, user.getRole())\r\n                        .append(cartField, user.getCart())\r\n                        .append(likesField, user.getLikes())\r\n                        .append(transactionsField, user.getTransactions())\r\n                );\r\n            } catch (MongoException me) {\r\n                System.err.println(\"Unable to insert due to an error: \" + me);\r\n            }\r\n        }\r\n    }\r\n\r\n    public void insertMany(List<User> users) {\r\n\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME);\r\n            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);\r\n\r\n            List<Document> userList = new ArrayList<>();\r\n\r\n            CounterDB counterDB = CounterDB.getInstance();\r\n            Counter counter = counterDB.find(\"userId\");\r\n            counter.incrementSeq();\r\n            counterDB.update(counter);\r\n\r\n            for(User user : users) {\r\n                userList.add(new Document()\r\n                        .append(\"_id\", new ObjectId())\r\n                        .append(userIdField, counter.getSeq())\r\n                        .append(emailField, user.getEmail())\r\n                        .append(firstNameField, user.getFirstName())\r\n                        .append(lastNameField, user.getLastName())\r\n                        .append(phoneField, user.getPhone())\r\n                        .append(addressField, user.getAddress())\r\n                        .append(passwordField, user.getPassword())\r\n                        .append(roleField, user.getRole())\r\n                        .append(cartField, user.getCart())\r\n                        .append(likesField, user.getLikes())\r\n                        .append(transactionsField, user.getTransactions())\r\n                );\r\n\r\n                counter.incrementSeq();\r\n                counterDB.update(counter);\r\n            }\r\n\r\n            try {\r\n                collection.insertMany(userList);\r\n            } catch (MongoException me) {\r\n                System.err.println(\"Unable to insert due to an error: \" + me);\r\n            }\r\n        }\r\n    }\r\n\r\n    //Find\r\n    public User find(String email){\r\n        CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();\r\n        CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));\r\n\r\n        User user;\r\n\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);\r\n            MongoCollection<User> collection = database.getCollection(COLLECTION_NAME, User.class);\r\n            user = collection.find(Filters.eq(emailField, email)).projection(Projections.excludeId()).first();\r\n        }\r\n\r\n        return user;\r\n    }\r\n\r\n    public void update(User user) {\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME);\r\n            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);\r\n\r\n            Document query = new Document().append(userIdField,  user.getUserId());\r\n\r\n            Bson updates = Updates.combine(\r\n                    Updates.set(emailField, user.getEmail()),\r\n                    Updates.set(firstNameField, user.getFirstName()),\r\n                    Updates.set(lastNameField, user.getLastName()),\r\n                    Updates.set(phoneField, user.getPhone()),\r\n                    Updates.set(addressField, user.getAddress()),\r\n                    Updates.set(passwordField, user.getPassword()),\r\n                    Updates.set(roleField, user.getRole()),\r\n                    Updates.set(cartField, user.getCart()),\r\n                    Updates.set(likesField, user.getLikes()),\r\n                    Updates.set(transactionsField, user.getTransactions())\r\n            );\r\n\r\n            UpdateOptions options = new UpdateOptions().upsert(true);\r\n\r\n            try {\r\n                collection.updateOne(query, updates, options);\r\n            } catch (MongoException me) {\r\n                System.err.println(\"Unable to update due to an error: \" + me);\r\n            }\r\n        }\r\n    }\r\n\r\n    public void delete(User user) {\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME);\r\n            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);\r\n\r\n            Bson query = Filters.eq(userIdField, user.getUserId());\r\n\r\n            try {\r\n                collection.deleteOne(query);\r\n            } catch (MongoException me) {\r\n                System.err.println(\"Unable to delete due to an error: \" + me);\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/dbaccess/UserDB.java b/src/main/java/dbaccess/UserDB.java
+--- a/src/main/java/dbaccess/UserDB.java	(revision 2524ab633d49c54248d5052cd93fe0eb6daa8a03)
++++ b/src/main/java/dbaccess/UserDB.java	(date 1687968480424)
+@@ -17,6 +17,7 @@
+ import org.bson.codecs.pojo.PojoCodecProvider;
+ import org.bson.conversions.Bson;
+ import org.bson.types.ObjectId;
++import org.springframework.stereotype.Repository;
+ 
+ import java.util.ArrayList;
+ import java.util.List;
+@@ -25,6 +26,7 @@
+ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+ 
++@Repository
+ public class UserDB {
+ 
+     public static final String URI = "mongodb://localhost:27017";
+Index: src/main/java/dbaccess/CounterDB.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package dbaccess;\r\n\r\nimport com.mongodb.MongoException;\r\nimport com.mongodb.client.MongoClient;\r\nimport com.mongodb.client.MongoClients;\r\nimport com.mongodb.client.MongoCollection;\r\nimport com.mongodb.client.MongoDatabase;\r\nimport com.mongodb.client.model.Filters;\r\nimport com.mongodb.client.model.UpdateOptions;\r\nimport com.mongodb.client.model.Updates;\r\nimport models.Counter;\r\nimport models.User;\r\nimport org.bson.Document;\r\nimport org.bson.codecs.configuration.CodecProvider;\r\nimport org.bson.codecs.configuration.CodecRegistry;\r\nimport org.bson.codecs.pojo.PojoCodecProvider;\r\nimport org.bson.conversions.Bson;\r\n\r\nimport static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;\r\nimport static org.bson.codecs.configuration.CodecRegistries.fromProviders;\r\nimport static org.bson.codecs.configuration.CodecRegistries.fromRegistries;\r\n\r\npublic class CounterDB {\r\n\r\n    public static final String URI = \"mongodb://localhost:27017\";\r\n    public static final String DB_NAME = \"image_store_db\";\r\n    public static final String COLLECTION_NAME = \"counters\";\r\n\r\n\r\n    private static CounterDB instance;\r\n\r\n    private CounterDB() {\r\n    }\r\n\r\n    public static synchronized CounterDB getInstance() {\r\n        if(instance == null) {\r\n            instance = new CounterDB();\r\n        }\r\n        return instance;\r\n    }\r\n\r\n    public Counter find(String id){\r\n        CodecProvider pojoCodecProvider = PojoCodecProvider.builder().automatic(true).build();\r\n        CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));\r\n\r\n        Counter counter;\r\n\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);\r\n            MongoCollection<Counter> collection = database.getCollection(COLLECTION_NAME, Counter.class);\r\n            counter = collection.find(Filters.eq(\"_id\", id)).first();\r\n        }\r\n\r\n        return counter;\r\n    }\r\n\r\n    public void update(Counter counter) {\r\n        try (MongoClient mongoClient = MongoClients.create(URI)) {\r\n\r\n            MongoDatabase database = mongoClient.getDatabase(DB_NAME);\r\n            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);\r\n\r\n            Document query = new Document().append(\"_id\",  counter.getId());\r\n\r\n            Bson updates = Updates.combine(\r\n                    Updates.set(\"seq\", counter.getSeq())\r\n            );\r\n\r\n            UpdateOptions options = new UpdateOptions().upsert(true);\r\n\r\n            try {\r\n                collection.updateOne(query, updates, options);\r\n            } catch (MongoException me) {\r\n                System.err.println(\"Unable to update due to an error: \" + me);\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/dbaccess/CounterDB.java b/src/main/java/dbaccess/CounterDB.java
+--- a/src/main/java/dbaccess/CounterDB.java	(revision 2524ab633d49c54248d5052cd93fe0eb6daa8a03)
++++ b/src/main/java/dbaccess/CounterDB.java	(date 1687968480434)
+@@ -15,11 +15,13 @@
+ import org.bson.codecs.configuration.CodecRegistry;
+ import org.bson.codecs.pojo.PojoCodecProvider;
+ import org.bson.conversions.Bson;
++import org.springframework.stereotype.Repository;
+ 
+ import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
+ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+ 
++@Repository
+ public class CounterDB {
+ 
+     public static final String URI = "mongodb://localhost:27017";
