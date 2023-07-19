@@ -43,6 +43,10 @@ jobs:
         uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
         with:
           arguments: build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Package
+          path: build/libs
 
   deploy:
     runs-on: windows-latest
@@ -53,7 +57,7 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: java-app
 
