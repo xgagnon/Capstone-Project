@@ -1,0 +1,114 @@
+<changelist name="Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]" date="1689023545472" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 10/07/2023 15:12 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/main/exceptions/TransactionException.class" />
+    <option name="AFTER_PATH" value="build/classes/java/main/exceptions/TransactionException.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/TransactionException.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/main/models/Counter.class" />
+    <option name="AFTER_PATH" value="build/classes/java/main/models/Counter.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/Counter.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/test/dbaccess/CounterDBTest.class" />
+    <option name="AFTER_PATH" value="build/classes/java/test/dbaccess/CounterDBTest.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/CounterDBTest.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/main/dbaccess/ImageDB.class" />
+    <option name="AFTER_PATH" value="build/classes/java/main/dbaccess/ImageDB.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/ImageDB.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/test/services/TransactionServiceTest.class" />
+    <option name="AFTER_PATH" value="build/classes/java/test/services/TransactionServiceTest.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/TransactionServiceTest.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/main/dbaccess/TransactionDB.class" />
+    <option name="AFTER_PATH" value="build/classes/java/main/dbaccess/TransactionDB.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/TransactionDB.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/main/dbaccess/UserDB.class" />
+    <option name="AFTER_PATH" value="build/classes/java/main/dbaccess/UserDB.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/UserDB.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/main/services/UserService.class" />
+    <option name="AFTER_PATH" value="build/classes/java/main/services/UserService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/UserService.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/main/services/TransactionService.class" />
+    <option name="AFTER_PATH" value="build/classes/java/main/services/TransactionService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/TransactionService.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/main/enums/Role.class" />
+    <option name="AFTER_PATH" value="build/classes/java/main/enums/Role.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/Role.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/main/models/Transaction.class" />
+    <option name="AFTER_PATH" value="build/classes/java/main/models/Transaction.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/Transaction.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/main/models/Image.class" />
+    <option name="AFTER_PATH" value="build/classes/java/main/models/Image.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/Image.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/main/models/User.class" />
+    <option name="AFTER_PATH" value="build/classes/java/main/models/User.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/User.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/main/exceptions/UserException.class" />
+    <option name="AFTER_PATH" value="build/classes/java/main/exceptions/UserException.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/UserException.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/test/dbaccess/UserDBTest.class" />
+    <option name="AFTER_PATH" value="build/classes/java/test/dbaccess/UserDBTest.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/UserDBTest.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/main/dbaccess/CounterDB.class" />
+    <option name="AFTER_PATH" value="build/classes/java/main/dbaccess/CounterDB.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/CounterDB.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/main/controllers/UserController.class" />
+    <option name="AFTER_PATH" value="build/classes/java/main/controllers/UserController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/UserController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/main/exceptions/ImageException.class" />
+    <option name="AFTER_PATH" value="build/classes/java/main/exceptions/ImageException.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/ImageException.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/main/services/ImageService.class" />
+    <option name="AFTER_PATH" value="build/classes/java/main/services/ImageService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/ImageService.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/buildOutputCleanup/outputFiles.bin" />
+    <option name="AFTER_PATH" value=".gradle/buildOutputCleanup/outputFiles.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/outputFiles.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/test/dbaccess/TransactionDBTest.class" />
+    <option name="AFTER_PATH" value="build/classes/java/test/dbaccess/TransactionDBTest.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/TransactionDBTest.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/classes/java/test/services/UserServiceTest.class" />
+    <option name="AFTER_PATH" value="build/classes/java/test/services/UserServiceTest.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_15_12_[Changes]/UserServiceTest.class" />
+  </binary>
+</changelist>
