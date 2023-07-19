@@ -68,4 +68,4 @@ jobs:
           app-name: 'imagestoreBackend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_66DE28D9A51047B5B6B30174796C90DA }}
-          package: '*.jar'
+          package: 'CapstoneProject-1.0-SNAPSHOT.jar'
