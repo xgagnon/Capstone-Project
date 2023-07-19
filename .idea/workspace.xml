@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8dc9b1f-cdd7-4858-8760-c50a44395440" name="Changes" comment="Deployment" />
+    <list default="true" id="c8dc9b1f-cdd7-4858-8760-c50a44395440" name="Changes" comment="Deployment">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,6 +76,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/vitor/IdeaProjects/Capstone-Project/.github/workflows",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -86,6 +89,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\vitor\IdeaProjects\Capstone-Project\.github\workflows" />
+    </key>
+  </component>
   <component name="RunManager" selected="Spring Boot.App">
     <configuration name="ImageDBTest.testInsert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CapstoneProject.test" />
@@ -242,7 +250,63 @@
       <option name="project" value="LOCAL" />
       <updated>1689732652027</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Deployment">
+      <created>1689735633137</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1689735633137</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Deployment">
+      <created>1689736280682</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1689736280682</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Deployment">
+      <created>1689736439533</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1689736439533</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Deployment">
+      <created>1689737216835</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1689737216835</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Deployment">
+      <created>1689737551833</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1689737551833</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Deployment">
+      <created>1689737823540</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1689737823540</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Deployment">
+      <created>1689738076912</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1689738076912</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Deployment">
+      <created>1689738335821</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1689738335821</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

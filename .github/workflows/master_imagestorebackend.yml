@@ -30,19 +30,23 @@ jobs:
 #          name: java-app
 #          path: '${{ github.workspace }}/target/*.jar'
 
-  steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-    - name: Validate Gradle wrapper
-      uses: gradle/wrapper-validation-action@ccb4328a959376b642e027874838f60f8e596de3
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
-      with:
-        arguments: build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@ccb4328a959376b642e027874838f60f8e596de3
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
+        with:
+          arguments: build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: CapstoneProject-1.0-SNAPSHOT
+          path: '${{ github.workspace }}/build/libs/*.jar'
 
   deploy:
     runs-on: windows-latest
@@ -53,9 +57,9 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
-          name: java-app
+          name: CapstoneProject-1.0-SNAPSHOT
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -64,4 +68,4 @@ jobs:
           app-name: 'imagestoreBackend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_66DE28D9A51047B5B6B30174796C90DA }}
-          package: '*.jar'
+          package: 'CapstoneProject-1.0-SNAPSHOT.jar'
