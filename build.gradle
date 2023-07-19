@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.0'
     id 'io.spring.dependency-management' version '1.1.0'
+    id 'com.microsoft.azure.azurewebapp' version '1.1.0'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -22,6 +23,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'com.google.firebase:firebase-admin:6.3.0'
 }
+
 
 test {
     useJUnitPlatform()
