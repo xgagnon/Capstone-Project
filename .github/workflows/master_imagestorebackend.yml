@@ -45,7 +45,7 @@ jobs:
           arguments: build
       - uses: actions/upload-artifact@v3
         with:
-          name: java-app
+          name: CapstoneProject-1.0-SNAPSHOT
           path: '${{ github.workspace }}/build/libs/*.jar'
 
   deploy:
@@ -59,7 +59,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-          name: java-app
+          name: CapstoneProject-1.0-SNAPSHOT
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
